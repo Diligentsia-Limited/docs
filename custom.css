@@ -1,0 +1,130 @@
+/* Override Mintlify playground dropdown styles with maximum specificity */
+* {
+  --dropdown-bg: #f9fafb;
+  --dropdown-text: #111827;
+  --dropdown-border: #d1d5db;
+  --dropdown-hover-bg: #f3f4f6;
+}
+
+[data-theme="dark"] * {
+  --dropdown-bg: #374151;
+  --dropdown-text: #f9fafb;
+  --dropdown-border: #4b5563;
+  --dropdown-hover-bg: #4b5563;
+}
+
+/* Target all possible select elements in the playground */
+.playground select,
+.playground-editor select,
+div[class*="playground"] select,
+div[class*="openapi"] select,
+div[class*="api-playground"] select,
+div[class*="request-body"] select,
+div[id*="playground"] select,
+form select,
+.request-form select,
+.api-request select {
+  background-color: var(--dropdown-bg) !important;
+  color: var(--dropdown-text) !important;
+  border: 1px solid var(--dropdown-border) !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 0.5rem center !important;
+  background-size: 1.5em 1.5em !important;
+  padding-right: 2.5rem !important;
+}
+
+/* Options in dropdowns */
+.playground option,
+div[class*="playground"] option,
+div[class*="openapi"] option,
+form option {
+  background-color: var(--dropdown-bg) !important;
+  color: var(--dropdown-text) !important;
+}
+
+/* Target with attribute selectors */
+select[name*="stage"],
+select[name*="annualRevenues"],
+select[name*="annualProfits"],
+select[name*="region"],
+select[name*="sweetSpot"],
+select[name*="investorMatch"] {
+  background-color: var(--dropdown-bg) !important;
+  color: var(--dropdown-text) !important;
+  border: 1px solid var(--dropdown-border) !important;
+}
+
+/* More aggressive targeting */
+#__next select,
+#root select,
+main select {
+  background-color: var(--dropdown-bg) !important;
+  color: var(--dropdown-text) !important;
+}
+
+/* Target by parent class patterns */
+[class*="Select"] select,
+[class*="select"] select,
+[class*="Dropdown"] select,
+[class*="dropdown"] select {
+  background-color: var(--dropdown-bg) !important;
+  color: var(--dropdown-text) !important;
+}
+
+/* Hover states */
+select:hover {
+  background-color: var(--dropdown-hover-bg) !important;
+}
+
+/* Focus states */
+select:focus,
+select:focus-visible {
+  outline: 2px solid #16A34A !important;
+  outline-offset: 1px !important;
+}
+
+/* Override any inline styles with very specific selectors */
+html body main select,
+html body div select {
+  background-color: var(--dropdown-bg) !important;
+  color: var(--dropdown-text) !important;
+}
+
+/* Target Mintlify's specific playground classes */
+.code-input select,
+.schema-form select,
+.param-input select,
+.enum-select,
+.enum-dropdown {
+  background-color: var(--dropdown-bg) !important;
+  color: var(--dropdown-text) !important;
+  border: 1px solid var(--dropdown-border) !important;
+}
+
+/* If Mintlify uses custom dropdown components */
+[role="combobox"],
+[role="listbox"] {
+  background-color: var(--dropdown-bg) !important;
+  color: var(--dropdown-text) !important;
+}
+
+/* Override white background specifically */
+select[style*="background-color: white"],
+select[style*="background-color: rgb(255, 255, 255)"],
+select[style*="background-color:#fff"],
+select[style*="background-color:#ffffff"] {
+  background-color: var(--dropdown-bg) !important;
+  color: var(--dropdown-text) !important;
+}
+
+/* Very specific override for any white text */
+select[style*="color: white"],
+select[style*="color: rgb(255, 255, 255)"],
+select[style*="color:#fff"],
+select[style*="color:#ffffff"] {
+  color: var(--dropdown-text) !important;
+}

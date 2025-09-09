@@ -1,216 +1,323 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
-    "license": {
-      "name": "MIT"
-    },
+    "title": "Diligentsia API",
+    "description": "API for company registration and investor matching",
     "version": "1.0.0"
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
-    }
-  ],
-  "security": [
-    {
-      "bearerAuth": []
+      "url": "https://devserver.diligentsia.co.uk"
     }
   ],
   "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
+    "/api/v1/company/create-with-investormatch": {
+      "post": {
+        "summary": "Create Company with InvestorMatch",
+        "description": "Register a UK company with comprehensive investor matching data",
         "parameters": [
           {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
+            "name": "X-API-Key",
+            "in": "header",
+            "required": true,
+            "description": "Your partner API key for authentication",
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "description": "Must be application/json",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "application/json"
+              ]
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["company", "investorMatch"],
+                "properties": {
+                  "user": {
+                    "type": "object",
+                    "description": "User information (optional)",
+                    "properties": {
+                      "email": {
+                        "type": "string",
+                        "format": "email",
+                        "description": "User's email address"
+                      },
+                      "firstName": {
+                        "type": "string",
+                        "description": "User's first name"
+                      },
+                      "lastName": {
+                        "type": "string",
+                        "description": "User's last name"
+                      }
+                    }
+                  },
+                  "company": {
+                    "type": "object",
+                    "required": ["ukRegNo", "companyWebsite", "company5Words"],
+                    "description": "Company information",
+                    "properties": {
+                      "ukRegNo": {
+                        "type": "string",
+                        "pattern": "^[0-9A-Z]{6,8}$",
+                        "description": "UK company registration number (6-8 alphanumeric characters)"
+                      },
+                      "companyWebsite": {
+                        "type": "string",
+                        "description": "Company website URL"
+                      },
+                      "company5Words": {
+                        "type": "string",
+                        "description": "Company description in minimum 5 words"
+                      }
+                    }
+                  },
+                  "investorMatch": {
+                    "type": "object",
+                    "required": ["sector", "stage", "annualRevenues", "annualProfits", "region", "sweetSpot"],
+                    "description": "InvestorMatch information",
+                    "properties": {
+                      "sector": {
+                        "type": "string",
+                        "description": "Business sector"
+                      },
+                      "stage": {
+                        "type": "string",
+                        "description": "Company development stage",
+                        "enum": [
+                          "Pre-Revenue",
+                          "Post-Revenue Early Stage",
+                          "Mature"
+                        ]
+                      },
+                      "annualRevenues": {
+                        "type": "string",
+                        "description": "Current year budgeted revenue",
+                        "enum": [
+                          "Nil",
+                          "<£100'000",
+                          "£100'000-£500'000",
+                          "£500'001-£1m",
+                          ">£1m ARR",
+                          "£1m-£5m",
+                          "£5m-£10m",
+                          "£10m-£20m",
+                          "£20m-£100m",
+                          "£100m+"
+                        ]
+                      },
+                      "annualProfits": {
+                        "type": "string",
+                        "description": "Current year budgeted profit before tax",
+                        "enum": [
+                          "Nil",
+                          "<£100'000",
+                          "£100'000-£500'000",
+                          "£500'001-£1m",
+                          ">£1m ARR",
+                          "£1m-£5m",
+                          "£5m-£10m",
+                          "£10m-£20m",
+                          "£20m-£100m",
+                          "£100m+"
+                        ]
+                      },
+                      "region": {
+                        "type": "string",
+                        "description": "UK operating region",
+                        "enum": [
+                          "Nationwide (UK-wide)",
+                          "East Midlands",
+                          "West Midlands",
+                          "East of England",
+                          "South East England",
+                          "South West England",
+                          "North West England",
+                          "North East England",
+                          "Yorkshire and the Humber",
+                          "Greater London",
+                          "Scotland",
+                          "Wales",
+                          "Northern Ireland",
+                          "Channel Islands (Jersey & Guernsey)",
+                          "Isle of Man"
+                        ]
+                      },
+                      "sweetSpot": {
+                        "type": "string",
+                        "description": "Investment amount sought",
+                        "enum": [
+                          "<£100'000",
+                          "£100'001-£1'000'000",
+                          "£1'000'001-£5'000'000",
+                          "£5'000'001-£20'000'000",
+                          "£20'000'001-£100'000'000",
+                          ">£100'000'001",
+                          "Not known"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
-            "description": "Plant response",
+            "description": "Company created successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Company created successfully with InvestorMatch data"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "companyId": {
+                          "type": "string",
+                          "description": "Unique identifier for the created company"
+                        },
+                        "userId": {
+                          "type": "string",
+                          "description": "Unique identifier for the user"
+                        },
+                        "companyName": {
+                          "type": "string",
+                          "description": "Company name from Companies House"
+                        },
+                        "ukRegNo": {
+                          "type": "string",
+                          "description": "Normalized UK registration number"
+                        },
+                        "partnerId": {
+                          "type": "string",
+                          "description": "Partner organization ID"
+                        },
+                        "partnerName": {
+                          "type": "string",
+                          "description": "Partner organization name"
+                        },
+                        "investorMatchCompleted": {
+                          "type": "boolean",
+                          "description": "Whether InvestorMatch data was successfully saved"
+                        },
+                        "fitReport": {
+                          "type": "object",
+                          "properties": {
+                            "topMatches": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "investorId": {
+                                    "type": "string"
+                                  },
+                                  "investorName": {
+                                    "type": "string"
+                                  },
+                                  "fitScorePercentage": {
+                                    "type": "number"
+                                  },
+                                  "breakdown": {
+                                    "type": "object",
+                                    "properties": {
+                                      "sectorScore": {
+                                        "type": "number"
+                                      },
+                                      "stageScore": {
+                                        "type": "number"
+                                      },
+                                      "sweetSpotScore": {
+                                        "type": "number"
+                                      },
+                                      "regionScore": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "averageFitScore": {
+                              "type": "number",
+                              "description": "Average compatibility score across all investors"
+                            },
+                            "companyProfile": {
+                              "type": "object",
+                              "properties": {
+                                "sector": {
+                                  "type": "string"
+                                },
+                                "stage": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               }
             }
           },
           "400": {
-            "description": "Unexpected error",
+            "description": "Validation error",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Validation error"
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "example": "VALIDATION_ERROR"
+                        },
+                        "details": {
+                          "type": "string",
+                          "example": "UK company registration number (ukRegNo) must be 6-8 alphanumeric characters"
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
           }
         }
-      },
-      "post": {
-        "description": "Creates a new plant in the store",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "webhooks": {
-    "/plant/webhook": {
-      "post": {
-        "description": "Information about a new plant added to the store",
-        "requestBody": {
-          "description": "Plant added to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Return a 200 status to indicate that the data was received successfully"
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
-          },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
-          }
-        }
-      },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        ]
-      },
-      "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
       }
     }
   }
