@@ -1,0 +1,339 @@
+---
+title: 'Create Company with InvestorMatch'
+api: 'POST https://devserver.diligentsia.co.uk/api/v1/company/create-with-investormatch'
+description: 'Register a UK company with comprehensive investor matching data'
+---
+
+<Note>
+  This endpoint requires authentication via X-API-Key header. Contact support@diligentsia.com to obtain your partner API key.
+</Note>
+
+## Headers
+
+<ParamField header="X-API-Key" type="string" required>
+  Your partner API key for authentication
+</ParamField>
+
+<ParamField header="Content-Type" type="string" required>
+  Must be `application/json`
+</ParamField>
+
+## Request Body
+
+### User Information (Optional)
+
+<ParamField body="user" type="object">
+  <Expandable title="User fields">
+    <ParamField body="email" type="string">
+      User's email address. If provided, user will receive activation link.
+    </ParamField>
+    
+    <ParamField body="firstName" type="string">
+      User's first name
+    </ParamField>
+    
+    <ParamField body="lastName" type="string">
+      User's last name
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+### Company Information (Required)
+
+<ParamField body="company" type="object" required>
+  <Expandable title="Company fields">
+    <ParamField body="ukRegNo" type="string" required>
+      UK company registration number (6-8 alphanumeric characters)
+      
+      **Pattern:** `^[0-9A-Z]{6,8}$`
+      
+      **Auto-transform:** Spaces removed, converted to uppercase
+      
+      **Examples:** `12345678`, `AB123456`, `SC123456`
+    </ParamField>
+    
+    <ParamField body="companyWebsite" type="string" required>
+      Company website URL
+      
+      **Format:** Valid URL (protocol optional)
+      
+      **Examples:** `example.com`, `https://example.co.uk`
+    </ParamField>
+    
+    <ParamField body="company5Words" type="string" required>
+      Company description in minimum 5 words
+      
+      **Example:** `Software development consulting services company`
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+### InvestorMatch Information (Required)
+
+<ParamField body="investorMatch" type="object" required>
+  <Expandable title="InvestorMatch fields">
+    <ParamField body="sector" type="string" required>
+      Business sector from the following options:
+      
+      <CodeGroup>
+      ```text Available Sectors
+      General
+      Advertising
+      Ag Tech
+      Analytics
+      Artificial Intelligence
+      Big Data
+      Biotechnology
+      Blockchain
+      Commerce & Shopping
+      Community & Lifestyle
+      Consumer Electronics
+      Consumer Goods
+      Cryptocurrency
+      Cybersecurity
+      Data & Analytics
+      E-Commerce
+      Education
+      Energy
+      Enterprise Software
+      Events
+      Female Focus
+      Finance
+      Financial Services
+      FinTech
+      Food & Beverage
+      Gaming
+      Gov Tech
+      Hardware
+      Healthcare
+      Information Technology
+      Internet Services
+      Insurtech
+      Lending & Investments
+      Machine Learning
+      Manufacturing
+      Marketplace
+      Media & Entertainment
+      Medical
+      Medical Device
+      Mobile
+      Mobile Apps
+      Payments
+      Privacy & Security
+      Professional Services
+      Prop Tech
+      Real Estate
+      Retail
+      SaaS
+      Sales & Marketing
+      Science & Engineering
+      Smart Cities
+      Software
+      Sustainability
+      Transportation
+      Video
+      Wellness
+      Other
+      Not Selected
+      ```
+      </CodeGroup>
+    </ParamField>
+    
+    <ParamField body="stage" type="string" required>
+      Company development stage:
+      - `Pre-Revenue` - No revenue yet
+      - `Post-Revenue Early Stage` - Initial revenue generation
+      - `Mature` - Established revenue streams
+    </ParamField>
+    
+    <ParamField body="annualRevenues" type="string" required>
+      Current year budgeted revenue:
+      - `Nil`
+      - `<£100'000`
+      - `£100'000-£500'000`
+      - `£500'001-£1m`
+      - `>£1m ARR`
+      - `£1m-£5m`
+      - `£5m-£10m`
+      - `£10m-£20m`
+      - `£20m-£100m`
+      - `£100m+`
+    </ParamField>
+    
+    <ParamField body="annualProfits" type="string" required>
+      Current year budgeted profit before tax:
+      - `Nil`
+      - `<£100'000`
+      - `£100'000-£500'000`
+      - `£500'001-£1m`
+      - `>£1m ARR`
+      - `£1m-£5m`
+      - `£5m-£10m`
+      - `£10m-£20m`
+      - `£20m-£100m`
+      - `£100m+`
+    </ParamField>
+    
+    <ParamField body="region" type="string" required>
+      UK operating region:
+      - `Nationwide (UK-wide)`
+      - `East Midlands`
+      - `West Midlands`
+      - `East of England`
+      - `South East England`
+      - `South West England`
+      - `North West England`
+      - `North East England`
+      - `Yorkshire and the Humber`
+      - `Greater London`
+      - `Scotland`
+      - `Wales`
+      - `Northern Ireland`
+      - `Channel Islands (Jersey & Guernsey)`
+      - `Isle of Man`
+    </ParamField>
+    
+    <ParamField body="sweetSpot" type="string" required>
+      Investment amount sought:
+      - `<£100'000`
+      - `£100'001-£1'000'000`
+      - `£1'000'001-£5'000'000`
+      - `£5'000'001-£20'000'000`
+      - `£20'000'001-£100'000'000`
+      - `>£100'000'001`
+      - `Not known`
+    </ParamField>
+  </Expandable>
+</ParamField>
+
+## Response
+
+<ResponseField name="status" type="number">
+  HTTP status code (200 for success)
+</ResponseField>
+
+<ResponseField name="message" type="string">
+  Response message
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  <Expandable title="Response data">
+    <ResponseField name="companyId" type="string">
+      Unique identifier for the created company
+    </ResponseField>
+    
+    <ResponseField name="userId" type="string">
+      Unique identifier for the user
+    </ResponseField>
+    
+    <ResponseField name="companyName" type="string">
+      Company name from Companies House
+    </ResponseField>
+    
+    <ResponseField name="ukRegNo" type="string">
+      Normalized UK registration number
+    </ResponseField>
+    
+    <ResponseField name="partnerId" type="string">
+      Partner organization ID
+    </ResponseField>
+    
+    <ResponseField name="partnerName" type="string">
+      Partner organization name
+    </ResponseField>
+    
+    <ResponseField name="investorMatchCompleted" type="boolean">
+      Whether InvestorMatch data was successfully saved
+    </ResponseField>
+    
+    <ResponseField name="fitReport" type="object">
+      <Expandable title="Fit report details">
+        <ResponseField name="topMatches" type="array">
+          Array of top 10 investor matches with scores
+        </ResponseField>
+        
+        <ResponseField name="averageFitScore" type="number">
+          Average compatibility score across all investors
+        </ResponseField>
+        
+        <ResponseField name="companyProfile" type="object">
+          Summary of company's InvestorMatch profile
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<RequestExample>
+```json Request
+{
+  "user": {
+    "email": "john.doe@example.com",
+    "firstName": "John",
+    "lastName": "Doe"
+  },
+  "company": {
+    "ukRegNo": "12345678",
+    "companyWebsite": "https://techstartup.co.uk",
+    "company5Words": "Innovative software development consulting services"
+  },
+  "investorMatch": {
+    "sector": "Software",
+    "stage": "Post-Revenue Early Stage",
+    "annualRevenues": "£1m-£5m",
+    "annualProfits": "£100'000-£500'000",
+    "region": "Greater London",
+    "sweetSpot": "£1'000'001-£5'000'000"
+  }
+}
+```
+</RequestExample>
+
+<ResponseExample>
+```json Success Response
+{
+  "status": 200,
+  "message": "Company created successfully with InvestorMatch data",
+  "data": {
+    "companyId": "507f1f77bcf86cd799439011",
+    "userId": "507f1f77bcf86cd799439012",
+    "companyName": "Tech Startup Ltd",
+    "ukRegNo": "12345678",
+    "partnerId": "507f1f77bcf86cd799439013",
+    "partnerName": "Partner Company",
+    "investorMatchCompleted": true,
+    "fitReport": {
+      "topMatches": [
+        {
+          "investorId": "507f1f77bcf86cd799439014",
+          "investorName": "Venture Capital Fund",
+          "fitScorePercentage": 85,
+          "breakdown": {
+            "sectorScore": 100,
+            "stageScore": 100,
+            "sweetSpotScore": 75,
+            "regionScore": 100
+          }
+        }
+      ],
+      "averageFitScore": 72.5,
+      "companyProfile": {
+        "sector": "Software",
+        "stage": "Post-Revenue Early Stage"
+      }
+    }
+  }
+}
+```
+
+```json Error Response
+{
+  "status": 400,
+  "message": "Validation error",
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "details": "UK company registration number (ukRegNo) must be 6-8 alphanumeric characters"
+  }
+}
+```
+</ResponseExample>

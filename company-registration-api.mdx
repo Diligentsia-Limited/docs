@@ -1,0 +1,297 @@
+---
+title: 'Company Registration API'
+description: 'Register UK companies with comprehensive investor matching capabilities'
+icon: 'building'
+---
+
+## 🚀 Overview
+
+The Company Registration API enables partners to seamlessly register UK companies and automatically match them with potential investors. This powerful endpoint integrates with Companies House data and provides instant investor compatibility scoring based on multiple business metrics.
+
+<CardGroup cols={3}>
+  <Card title="Instant Registration" icon="bolt" color="#0285c7">
+    Register companies with UK registration numbers
+  </Card>
+  <Card title="Investor Matching" icon="users" color="#16a34a">
+    Automatic matching with 1000+ investors
+  </Card>
+  <Card title="Fit Scoring" icon="percentage" color="#dc2626">
+    Get compatibility scores up to 100%
+  </Card>
+</CardGroup>
+
+## 📍 Endpoint Details
+
+<Card title="POST /api/v1/company/create-with-investormatch" icon="paper-plane">
+  
+  **Method:** `POST`
+  
+  **URL:** `https://devserver.diligentsia.co.uk/api/v1/company/create-with-investormatch`
+  
+  **Authentication:** Required (X-API-Key header)
+  
+  **Content-Type:** `application/json`
+  
+</Card>
+
+## 📝 Request Body Structure
+
+The request body consists of three main sections:
+
+<Tabs>
+  <Tab title="User Information">
+    
+    <Note>
+      **Optional Section** - If not provided, a guest user will be created
+    </Note>
+    
+    ### User Fields
+    
+    | Field | Type | Required | Description |
+    |-------|------|----------|-------------|
+    | `email` | string | No | User's email address for account creation |
+    | `firstName` | string | No | User's first name |
+    | `lastName` | string | No | User's last name |
+    
+    <Info>
+      If user email is provided, they will receive an activation link with permission options
+    </Info>
+    
+  </Tab>
+  
+  <Tab title="Company Details">
+    
+    <Warning>
+      **Required Section** - All company fields must be provided
+    </Warning>
+    
+    ### Company Fields
+    
+    | Field | Type | Required | Description | Validation |
+    |-------|------|----------|-------------|------------|
+    | `ukRegNo` | string | **Yes** | UK company registration number | 6-8 alphanumeric characters |
+    | `companyWebsite` | string | **Yes** | Company website URL | Valid URL format |
+    | `company5Words` | string | **Yes** | Company description | Minimum 5 words |
+    
+    <Tip>
+      UK registration numbers are automatically normalized (spaces removed, uppercase)
+    </Tip>
+    
+  </Tab>
+  
+  <Tab title="InvestorMatch Data">
+    
+    <Warning>
+      **Required Section** - All InvestorMatch fields must be provided
+    </Warning>
+    
+    ### InvestorMatch Fields
+    
+    | Field | Type | Required | Description |
+    |-------|------|----------|-------------|
+    | `sector` | enum | **Yes** | Business sector |
+    | `stage` | enum | **Yes** | Company development stage |
+    | `annualRevenues` | enum | **Yes** | Current year revenue range |
+    | `annualProfits` | enum | **Yes** | Current year profit range |
+    | `region` | enum | **Yes** | UK operating region |
+    | `sweetSpot` | enum | **Yes** | Investment amount sought |
+    
+  </Tab>
+</Tabs>
+
+## ✅ Validation Rules
+
+### 🏢 Company Validation
+
+<AccordionGroup>
+  <Accordion title="UK Registration Number">
+    - **Format:** 6-8 alphanumeric characters
+    - **Pattern:** `/^[0-9A-Z]{6,8}$/`
+    - **Auto-transformation:** Spaces removed, converted to uppercase
+    - **Examples:** `12345678`, `AB123456`, `SC123456`
+  </Accordion>
+  
+  <Accordion title="Company Website">
+    - **Format:** Valid URL
+    - **Protocol:** Optional (http/https added if missing)
+    - **Examples:** `example.com`, `https://example.co.uk`
+  </Accordion>
+  
+  <Accordion title="Company Description">
+    - **Minimum:** 5 words
+    - **Separator:** Space-separated words
+    - **Example:** `Software development consulting services company`
+  </Accordion>
+</AccordionGroup>
+
+### 📊 InvestorMatch Options
+
+<AccordionGroup>
+  <Accordion title="Business Sectors">
+    Available sectors include:
+    - Software, SaaS, Enterprise Software
+    - FinTech, InsurTech, Financial Services
+    - Healthcare, Medical Device, Biotechnology
+    - E-Commerce, Marketplace, Retail
+    - Artificial Intelligence, Machine Learning
+    - Education, Media & Entertainment
+    - And 40+ more sectors
+  </Accordion>
+  
+  <Accordion title="Company Stages">
+    - **Pre-Revenue** - No revenue yet
+    - **Post-Revenue Early Stage** - Initial revenue generation
+    - **Mature** - Established revenue streams
+  </Accordion>
+  
+  <Accordion title="Revenue & Profit Ranges">
+    - Nil
+    - Less than £100,000
+    - £100,000-£500,000
+    - £500,001-£1m
+    - £1m-£5m
+    - £5m-£10m
+    - £10m-£20m
+    - £20m-£100m
+    - £100m+
+  </Accordion>
+  
+  <Accordion title="UK Regions">
+    - Nationwide (UK-wide)
+    - Greater London
+    - South East/West England
+    - North East/West England
+    - East/West Midlands
+    - Yorkshire and the Humber
+    - Scotland, Wales, Northern Ireland
+    - Channel Islands, Isle of Man
+  </Accordion>
+  
+  <Accordion title="Investment Amounts">
+    - Less than £100,000
+    - £100,001-£1,000,000
+    - £1,000,001-£5,000,000
+    - £5,000,001-£20,000,000
+    - £20,000,001-£100,000,000
+    - More than £100,000,001
+    - Not known
+  </Accordion>
+</AccordionGroup>
+
+## 📤 Request Example
+
+```json
+{
+  "user": {
+    "email": "john.doe@example.com",
+    "firstName": "John",
+    "lastName": "Doe"
+  },
+  "company": {
+    "ukRegNo": "12345678",
+    "companyWebsite": "https://techstartup.co.uk",
+    "company5Words": "Innovative software development consulting services"
+  },
+  "investorMatch": {
+    "sector": "Software",
+    "stage": "Post-Revenue Early Stage",
+    "annualRevenues": "£1m-£5m",
+    "annualProfits": "£100,000-£500,000",
+    "region": "Greater London",
+    "sweetSpot": "£1,000,001-£5,000,000"
+  }
+}
+```
+
+## 📥 Response Format
+
+### ✅ Success Response (200)
+
+```json
+{
+  "status": 200,
+  "message": "Company created successfully with InvestorMatch data",
+  "data": {
+    "companyId": "507f1f77bcf86cd799439011",
+    "userId": "507f1f77bcf86cd799439012",
+    "companyName": "Tech Startup Ltd",
+    "ukRegNo": "12345678",
+    "partnerId": "507f1f77bcf86cd799439013",
+    "partnerName": "Partner Company",
+    "investorMatchCompleted": true,
+    "fitReport": {
+      "topMatches": [
+        {
+          "investorId": "507f1f77bcf86cd799439014",
+          "investorName": "Venture Capital Fund",
+          "fitScorePercentage": 85,
+          "breakdown": {
+            "sectorScore": 100,
+            "stageScore": 100,
+            "sweetSpotScore": 75,
+            "regionScore": 100
+          }
+        }
+      ],
+      "averageFitScore": 72.5,
+      "companyProfile": {
+        "sector": "Software",
+        "stage": "Post-Revenue Early Stage"
+      }
+    }
+  }
+}
+```
+
+### ❌ Error Response (400)
+
+```json
+{
+  "status": 400,
+  "message": "Validation error",
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "details": "UK company registration number (ukRegNo) must be 6-8 alphanumeric characters"
+  }
+}
+```
+
+## 🎯 What Happens Next?
+
+<Steps>
+  <Step title="Company Creation">
+    Company profile is created with Companies House integration
+  </Step>
+  <Step title="User Account">
+    User account is created or updated with partner association
+  </Step>
+  <Step title="Email Notification">
+    If email provided, user receives activation link with permission options
+  </Step>
+  <Step title="Investor Matching">
+    System matches company against 1000+ investor profiles
+  </Step>
+  <Step title="Fit Score Calculation">
+    Compatibility scores calculated based on 6 key metrics
+  </Step>
+  <Step title="Report Generation">
+    Top 10 investor matches returned with detailed scoring
+  </Step>
+</Steps>
+
+## 💡 Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Data Quality" icon="check-circle" color="#16a34a">
+    Ensure all company information is accurate for better matching results
+  </Card>
+  <Card title="Complete Profiles" icon="clipboard-check" color="#0285c7">
+    Provide all InvestorMatch fields for comprehensive scoring
+  </Card>
+  <Card title="Valid Registration" icon="shield-check" color="#dc2626">
+    Verify UK registration number before submission
+  </Card>
+  <Card title="Secure Storage" icon="lock" color="#7c3aed">
+    Store API responses securely for future reference
+  </Card>
+</CardGroup>

@@ -1,0 +1,89 @@
+---
+title: 'Get Started'
+description: 'Register companies and enable investor matching through our API'
+icon: 'rocket'
+---
+
+## Overview
+
+The **Diligentsia** API allows partners to integrate company creation and investor matching capabilities into their own applications. This API enables you to create companies with comprehensive investor matching data and retrieve detailed fit scores against potential investors.
+
+<CardGroup cols={3}>
+  <Card title="Company Registration" icon="building" color="#0285c7">
+    Register UK companies with Companies House integration
+  </Card>
+  <Card title="Investor Matching" icon="handshake" color="#16a34a">
+    Match companies with compatible investors automatically
+  </Card>
+  <Card title="Fit Scoring" icon="chart-line" color="#dc2626">
+    Get detailed compatibility scores and rankings
+  </Card>
+</CardGroup>
+
+## 🔐 Authentication
+
+The create company with investor match endpoint requires authentication using an API key provided in the request headers.
+
+### API Key Header
+
+Every request to the API must include your Partner API key in the headers:
+
+<CodeGroup>
+
+```bash Header Format
+X-API-Key: your-partner-api-key-here
+```
+
+</CodeGroup>
+
+<Warning>
+  Never expose your API key in client-side code or public repositories. Always keep it secure on your server.
+</Warning>
+
+### 🔑 Obtaining Your API Key
+
+To get your partner API key:
+
+<Card title="Contact Support" icon="headset" color="#0285c7">
+  If you don't have an API key yet, please contact our support team to get your partner API key.
+  
+  **Email:** support@diligentsia.com
+  
+  Please include:
+  - Your company information
+  - Contact information  
+  - Intended use case for the API
+</Card>
+
+## 📋 Required Headers
+
+<Tabs>
+  <Tab title="Headers Table">
+    
+    | Header | Type | Description |
+    |--------|------|-------------|
+    | `X-API-Key` | string | Your partner API key for authentication |
+    | `Content-Type` | string | Should be `application/json` for POST requests |
+    
+  </Tab>
+  <Tab title="Example Headers">
+  
+    ```json
+    {
+      "X-API-Key": "your-partner-api-key",
+      "Content-Type": "application/json"
+    }
+    ```
+    
+  </Tab>
+</Tabs>
+
+## 💬 Support
+
+<Card title="Contact Support" icon="envelope" href="mailto:support@diligentsia.com">
+  Get help with API integration, technical questions, or request your partner API key
+  
+  **Email:** support@diligentsia.com
+  
+  Our support team typically responds within 24 hours on business days.
+</Card>
