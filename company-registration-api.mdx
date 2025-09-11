@@ -47,14 +47,17 @@ The request body consists of three main sections:
     
     ### User Fields
     
-    | Field | Type | Required | Description |
-    |-------|------|----------|-------------|
-    | `email` | string | No | User's email address for account creation |
-    | `firstName` | string | No | User's first name |
-    | `lastName` | string | No | User's last name |
+    | Field | Type | Required | Description | Default |
+    |-------|------|----------|-------------|----------|
+    | `sendEmail` | boolean | No | Controls whether to send activation email | `true` |
+    | `email` | string | No | User's email address for account creation | - |
+    | `firstName` | string | No | User's first name | - |
+    | `lastName` | string | No | User's last name | - |
     
     <Info>
-      If user email is provided, they will receive an activation link with permission options
+      **Email Behavior:**
+      - If `sendEmail` is `true` (default): User receives an activation email with login instructions
+      - If `sendEmail` is `false`: API returns a `loginLink` in the response for direct access
     </Info>
     
   </Tab>
@@ -178,10 +181,37 @@ The request body consists of three main sections:
   </Accordion>
 </AccordionGroup>
 
-## 📤 Request Example
+## 📤 Request Examples
 
+### With Email Notification (Default)
 ```json
 {
+  "sendEmail": true,
+  "user": {
+    "email": "john.doe@example.com",
+    "firstName": "John",
+    "lastName": "Doe"
+  },
+  "company": {
+    "ukRegNo": "12345678",
+    "companyWebsite": "https://techstartup.co.uk",
+    "company5Words": "Innovative software development consulting services"
+  },
+  "investorMatch": {
+    "sector": "Software",
+    "stage": "Post-Revenue Early Stage",
+    "annualRevenues": "£1m-£5m",
+    "annualProfits": "£100,000-£500,000",
+    "region": "Greater London",
+    "sweetSpot": "£1,000,001-£5,000,000"
+  }
+}
+```
+
+### Without Email (Get Login Link)
+```json
+{
+  "sendEmail": false,
   "user": {
     "email": "john.doe@example.com",
     "firstName": "John",
@@ -207,6 +237,7 @@ The request body consists of three main sections:
 
 ### ✅ Success Response (200)
 
+#### When sendEmail is true (default)
 ```json
 {
   "status": 200,
@@ -243,6 +274,48 @@ The request body consists of three main sections:
 }
 ```
 
+#### When sendEmail is false
+```json
+{
+  "status": 200,
+  "message": "Company created successfully with InvestorMatch data",
+  "data": {
+    "companyId": "507f1f77bcf86cd799439011",
+    "userId": "507f1f77bcf86cd799439012",
+    "companyName": "Tech Startup Ltd",
+    "ukRegNo": "12345678",
+    "partnerId": "507f1f77bcf86cd799439013",
+    "partnerName": "Partner Company",
+    "investorMatchCompleted": true,
+    "loginLink": "https://dev.diligentsia.co.uk/completeInvestment/[investmentId]?companyId=[companyId]&cName=[companyName]&token=[authToken]&userId=[userId]",
+    "fitReport": {
+      "topMatches": [
+        {
+          "investorId": "507f1f77bcf86cd799439014",
+          "investorName": "Venture Capital Fund",
+          "fitScorePercentage": 85,
+          "breakdown": {
+            "sectorScore": 100,
+            "stageScore": 100,
+            "sweetSpotScore": 75,
+            "regionScore": 100
+          }
+        }
+      ],
+      "averageFitScore": 72.5,
+      "companyProfile": {
+        "sector": "Software",
+        "stage": "Post-Revenue Early Stage"
+      }
+    }
+  }
+}
+```
+
+<Warning>
+  The `loginLink` contains sensitive authentication tokens. Handle it securely and do not log or expose it in production environments.
+</Warning>
+
 ### ❌ Error Response (400)
 
 ```json
@@ -265,8 +338,9 @@ The request body consists of three main sections:
   <Step title="User Account">
     User account is created or updated with partner association
   </Step>
-  <Step title="Email Notification">
-    If email provided, user receives activation link with permission options
+  <Step title="Email Notification or Login Link">
+    - If `sendEmail` is `true`: User receives activation email with permission options
+    - If `sendEmail` is `false`: API returns `loginLink` for direct access
   </Step>
   <Step title="Investor Matching">
     System matches company against 1000+ investor profiles

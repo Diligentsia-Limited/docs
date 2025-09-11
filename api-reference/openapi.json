@@ -35,6 +35,11 @@
                 "type": "object",
                 "required": ["company", "investorMatch"],
                 "properties": {
+                  "sendEmail": {
+                    "type": "boolean",
+                    "description": "Optional. Whether to send activation email to the user. If false, returns loginLink in response",
+                    "default": true
+                  },
                   "user": {
                     "type": "object",
                     "description": "User information (optional)",
@@ -211,6 +216,10 @@
                         "investorMatchCompleted": {
                           "type": "boolean",
                           "description": "Whether InvestorMatch data was successfully saved"
+                        },
+                        "loginLink": {
+                          "type": "string",
+                          "description": "Direct login link when sendEmail is false (includes authentication token)"
                         },
                         "fitReport": {
                           "type": "object",
