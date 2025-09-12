@@ -24,6 +24,12 @@
             "pages": [
               "company-registration-api"
             ]
+          },
+          {
+            "group": "Get Company",
+            "pages": [
+              "get-external-company"
+            ]
           }
         ]
       },
@@ -34,6 +40,12 @@
             "group": "Create Company Endpoint",
             "pages": [
               "api-reference/endpoint/create-company-investormatch"
+            ]
+          },
+          {
+            "group": "Get Company Endpoint",
+            "pages": [
+              "api-reference/endpoint/get-external-company"
             ]
           }
         ]

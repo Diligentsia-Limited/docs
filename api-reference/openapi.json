@@ -11,6 +11,339 @@
     }
   ],
   "paths": {
+    "/api/v1/company/{ukRegNo}": {
+      "get": {
+        "summary": "Get External Company",
+        "description": "Retrieve company information with comprehensive investor matching data",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Bearer JWT token for authentication",
+            "schema": {
+              "type": "string",
+              "pattern": "^Bearer .+$"
+            }
+          },
+          {
+            "name": "ukRegNo",
+            "in": "path",
+            "required": true,
+            "description": "UK company registration number",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9A-Z]{6,8}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Company found with InvestorMatch data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Company found with InvestorMatch data"
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "companyId": {
+                          "type": "string",
+                          "description": "Unique identifier for the company"
+                        },
+                        "userId": {
+                          "type": "string",
+                          "description": "Associated user identifier"
+                        },
+                        "companyName": {
+                          "type": "string",
+                          "description": "Company name from Companies House"
+                        },
+                        "ukRegNo": {
+                          "type": "string",
+                          "description": "UK registration number"
+                        },
+                        "partnerId": {
+                          "type": "string",
+                          "description": "Partner organization ID"
+                        },
+                        "partnerName": {
+                          "type": "string",
+                          "description": "Partner organization name"
+                        },
+                        "investorMatchCompleted": {
+                          "type": "boolean",
+                          "description": "Whether all InvestorMatch questions are answered"
+                        },
+                        "fitReport": {
+                          "type": "object",
+                          "properties": {
+                            "topMatches": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "investorId": {
+                                    "type": "string"
+                                  },
+                                  "investorName": {
+                                    "type": "string"
+                                  },
+                                  "fitScore": {
+                                    "type": "number"
+                                  },
+                                  "fitScorePercentage": {
+                                    "type": "number"
+                                  },
+                                  "priorityScore": {
+                                    "type": "number"
+                                  },
+                                  "completenessScore": {
+                                    "type": "number"
+                                  },
+                                  "breakdown": {
+                                    "type": "object",
+                                    "properties": {
+                                      "sectorScore": {
+                                        "type": "number"
+                                      },
+                                      "stageScore": {
+                                        "type": "number"
+                                      },
+                                      "sweetSpotScore": {
+                                        "type": "number"
+                                      },
+                                      "annualRevenuesScore": {
+                                        "type": "number"
+                                      },
+                                      "annualProfitsScore": {
+                                        "type": "number"
+                                      },
+                                      "regionScore": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  },
+                                  "investorCriteria": {
+                                    "type": "object",
+                                    "properties": {
+                                      "sectors": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "stages": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "regions": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "sweetSpot": {
+                                        "type": "string"
+                                      },
+                                      "annualRevenues": {
+                                        "type": "string"
+                                      },
+                                      "annualProfits": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "averageFitScore": {
+                              "type": "number",
+                              "description": "Average compatibility score across all investors"
+                            },
+                            "companyProfile": {
+                              "type": "object",
+                              "properties": {
+                                "sector": {
+                                  "type": "string"
+                                },
+                                "stage": {
+                                  "type": "string"
+                                },
+                                "annualRevenues": {
+                                  "type": "string"
+                                },
+                                "annualProfits": {
+                                  "type": "string"
+                                },
+                                "region": {
+                                  "type": "string"
+                                },
+                                "sweetSpot": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Company not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Company not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/company/basic/{ukRegNo}": {
+      "get": {
+        "summary": "Get Company",
+        "description": "Retrieve basic company information by registration number",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Bearer JWT token for authentication",
+            "schema": {
+              "type": "string",
+              "pattern": "^Bearer .+$"
+            }
+          },
+          {
+            "name": "ukRegNo",
+            "in": "path",
+            "required": true,
+            "description": "UK company registration number",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9A-Z]{6,8}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Company found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Company found"
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "companyId": {
+                          "type": "string",
+                          "description": "Unique identifier for the company"
+                        },
+                        "userId": {
+                          "type": "string",
+                          "description": "Associated user identifier"
+                        },
+                        "companyName": {
+                          "type": "string",
+                          "description": "Company name from Companies House"
+                        },
+                        "ukRegNo": {
+                          "type": "string",
+                          "description": "UK registration number"
+                        },
+                        "partnerId": {
+                          "type": "string",
+                          "description": "Partner organization ID"
+                        },
+                        "partnerName": {
+                          "type": "string",
+                          "description": "Partner organization name"
+                        },
+                        "companyWebsite": {
+                          "type": "string",
+                          "description": "Company website URL"
+                        },
+                        "company5Words": {
+                          "type": "string",
+                          "description": "Brief company description"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "ISO timestamp of creation"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "ISO timestamp of last update"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Company not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Company not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/company/create-with-investormatch": {
       "post": {
         "summary": "Create Company with InvestorMatch",
