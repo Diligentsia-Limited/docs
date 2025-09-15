@@ -238,36 +238,6 @@ The request body consists of three main sections:
 #### When sendEmail is true (default)
 ```json
 {
-<<<<<<< HEAD
-  "status": 200,
-  "message": "Company created successfully with InvestorMatch data",
-  "data": {
-    "companyId": "507f1f77bcf86cd799439011",
-    "userId": "507f1f77bcf86cd799439012",
-    "companyName": "Tech Startup Ltd",
-    "ukRegNo": "12345678",
-    "partnerId": "507f1f77bcf86cd799439013",
-    "partnerName": "Partner Company",
-    "investorMatchCompleted": true,
-    "fitReport": {
-      "topMatches": [
-        {
-          "investorId": "507f1f77bcf86cd799439014",
-          "investorName": "Venture Capital Fund",
-          "fitScorePercentage": 85,
-          "breakdown": {
-            "sectorScore": 100,
-            "stageScore": 100,
-            "sweetSpotScore": 75,
-            "regionScore": 100
-          }
-        }
-      ],
-      "averageFitScore": 72.5,
-      "companyProfile": {
-        "sector": "Software",
-        "stage": "Post-Revenue Early Stage"
-=======
   "code": 200,
   "message": "Company created successfully with InvestorMatch data",
   "body": {
@@ -317,7 +287,6 @@ The request body consists of three main sections:
         "annualProfits": "£1m-£5m",
         "region": "East Midlands",
         "sweetSpot": "<£100'000"
->>>>>>> 0ea084ebb2aa80e89e5c499e8d4b095160239bd8
       }
     }
   }
@@ -327,37 +296,6 @@ The request body consists of three main sections:
 #### When sendEmail is false
 ```json
 {
-<<<<<<< HEAD
-  "status": 200,
-  "message": "Company created successfully with InvestorMatch data",
-  "data": {
-    "companyId": "507f1f77bcf86cd799439011",
-    "userId": "507f1f77bcf86cd799439012",
-    "companyName": "Tech Startup Ltd",
-    "ukRegNo": "12345678",
-    "partnerId": "507f1f77bcf86cd799439013",
-    "partnerName": "Partner Company",
-    "investorMatchCompleted": true,
-    "loginLink": "https://dev.diligentsia.co.uk/completeInvestment/[investmentId]?companyId=[companyId]&cName=[companyName]&token=[authToken]&userId=[userId]",
-    "fitReport": {
-      "topMatches": [
-        {
-          "investorId": "507f1f77bcf86cd799439014",
-          "investorName": "Venture Capital Fund",
-          "fitScorePercentage": 85,
-          "breakdown": {
-            "sectorScore": 100,
-            "stageScore": 100,
-            "sweetSpotScore": 75,
-            "regionScore": 100
-          }
-        }
-      ],
-      "averageFitScore": 72.5,
-      "companyProfile": {
-        "sector": "Software",
-        "stage": "Post-Revenue Early Stage"
-=======
   "code": 200,
   "message": "Company created successfully with InvestorMatch data",
   "body": {
@@ -408,7 +346,6 @@ The request body consists of three main sections:
         "annualProfits": "£1m-£5m",
         "region": "East Midlands",
         "sweetSpot": "<£100'000"
->>>>>>> 0ea084ebb2aa80e89e5c499e8d4b095160239bd8
       }
     }
   }
@@ -423,11 +360,7 @@ The request body consists of three main sections:
 
 ```json
 {
-<<<<<<< HEAD
-  "status": 400,
-=======
   "code": 400,
->>>>>>> 0ea084ebb2aa80e89e5c499e8d4b095160239bd8
   "message": "Validation error",
   "error": {
     "code": "VALIDATION_ERROR",
@@ -456,11 +389,7 @@ The request body consists of three main sections:
     Compatibility scores calculated based on 6 key metrics
   </Step>
   <Step title="Report Generation">
-<<<<<<< HEAD
-    Top 10 investor matches returned with detailed scoring
-=======
     Single best investor match returned with detailed scoring
->>>>>>> 0ea084ebb2aa80e89e5c499e8d4b095160239bd8
   </Step>
 </Steps>
 
