@@ -1,11 +1,11 @@
 ---
-title: 'Get External Company'
+title: 'Get Partner Company'
 openapi: 'GET /api/v1/company/{ukRegNo}'
 description: 'Retrieve company information with comprehensive investor matching data'
 ---
 
 <Note>
-  This endpoint requires authentication via Bearer JWT token. Include your JWT token in the Authorization header.
+  This endpoint requires authentication via X-API-Key header. Contact support@diligentsia.co.uk to obtain your partner API key.
 </Note>
 
 <Info>
@@ -16,14 +16,14 @@ description: 'Retrieve company information with comprehensive investor matching 
 ```bash cURL
 curl -X GET \
   https://devserver.diligentsia.co.uk/api/v1/company/90654233 \
-  -H 'Authorization: Bearer YOUR_JWT_TOKEN'
+  -H 'X-API-Key: YOUR_API_KEY'
 ```
 
 ```javascript JavaScript
 const response = await fetch('https://devserver.diligentsia.co.uk/api/v1/company/90654233', {
   method: 'GET',
   headers: {
-    'Authorization': 'Bearer YOUR_JWT_TOKEN'
+    'X-API-Key': 'YOUR_API_KEY'
   }
 });
 
@@ -35,7 +35,7 @@ console.log(data);
 import requests
 
 headers = {
-    'Authorization': 'Bearer YOUR_JWT_TOKEN'
+    'X-API-Key': 'YOUR_API_KEY'
 }
 
 response = requests.get(
@@ -54,96 +54,55 @@ print(data)
   "code": 200,
   "message": "Company found with InvestorMatch data",
   "body": {
-    "companyId": "68c419f024594d617a36c6c6",
-    "userId": "68bfe6109b0c0c04554d393d",
-    "companyName": "Example Tech Ltd",
-    "ukRegNo": "90654233",
-    "partnerId": "68a43c98c93d17364464e3d8",
-    "partnerName": "CowGills Super Flow",
+    "companyId": "67b419f024594d617a36c8d5",
+    "userId": "67afe6109b0c0c04554d392c",
+    "ukRegNo": "87654321",
+    "partnerId": "67a43c98c93d17364464e4c9",
+    "partnerName": "TechVentures Partners",
     "investorMatchCompleted": true,
     "fitReport": {
-      "topMatches": [
-        {
-          "investorId": "65d5a962c8d1efbe61021585",
-          "investorName": "YFM Equity Partners",
-          "fitScore": 4,
-          "fitScorePercentage": 67,
-          "priorityScore": 24,
-          "completenessScore": 21,
-          "breakdown": {
-            "sectorScore": 1,
-            "stageScore": 0,
-            "sweetSpotScore": 0.5,
-            "annualRevenuesScore": 1,
-            "annualProfitsScore": 1,
-            "regionScore": 0.5
-          },
-          "investorCriteria": {
-            "sectors": ["General", "Data & Analytics", "Life Science", "Manufacturing", "Retail"],
-            "stages": ["Private Equity"],
-            "regions": [],
-            "sweetSpot": "Not known",
-            "annualRevenues": "Not known",
-            "annualProfits": "£1m-£5m"
-          }
-        },
-        {
-          "investorId": "65d5a7dcc8d1efbe610208d0",
-          "investorName": "7percent Ventures Limited",
-          "fitScore": 3.5,
-          "fitScorePercentage": 58,
-          "priorityScore": 22,
-          "completenessScore": 19,
-          "breakdown": {
-            "sectorScore": 1,
-            "stageScore": 0,
-            "sweetSpotScore": 0,
-            "annualRevenuesScore": 1,
-            "annualProfitsScore": 1,
-            "regionScore": 0.5
-          },
-          "investorCriteria": {
-            "sectors": ["General"],
-            "stages": ["Pre-Seed", "Seed", "Venture Capital - Series A"],
-            "regions": [],
-            "sweetSpot": "£100,001-£1,000,000",
-            "annualRevenues": "Not known",
-            "annualProfits": "Not known"
-          }
-        },
-        {
-          "investorId": "65d5a7f3c8d1efbe61020989",
-          "investorName": "Seedcamp",
-          "fitScore": 3.5,
-          "fitScorePercentage": 58,
-          "priorityScore": 23,
-          "completenessScore": 20,
-          "breakdown": {
-            "sectorScore": 1,
-            "stageScore": 0,
-            "sweetSpotScore": 0,
-            "annualRevenuesScore": 1,
-            "annualProfitsScore": 1,
-            "regionScore": 0.5
-          },
-          "investorCriteria": {
-            "sectors": ["General"],
-            "stages": ["Early Stage Venture", "Seed"],
-            "regions": [],
-            "sweetSpot": "£100,001-£1,000,000",
-            "annualRevenues": "£1m-£5m",
-            "annualProfits": "Not known"
-          }
-        }
-      ],
-      "averageFitScore": 40.3,
+      "investorId": "66d5a7dcc8d1efbe610215e2",
+      "investorName": "Growth Capital Ventures",
+      "fitScore": 4.5,
+      "fitScorePercentage": 75,
+      "priorityScore": 30,
+      "completenessScore": 25,
+      "breakdown": {
+        "sectorScore": 1,
+        "stageScore": 0.5,
+        "sweetSpotScore": 1,
+        "annualRevenuesScore": 1,
+        "annualProfitsScore": 0.5,
+        "regionScore": 0.5
+      },
+      "investorCriteria": {
+        "sectors": [
+          "Technology",
+          "SaaS",
+          "Enterprise Software",
+          "Not Selected",
+          "Not Selected"
+        ],
+        "stages": [
+          "Seed",
+          "Venture Capital - Series A",
+          "Venture Capital - Series B"
+        ],
+        "regions": [
+          "Greater London",
+          "South East England"
+        ],
+        "sweetSpot": "£500,001-£5,000,000",
+        "annualRevenues": "£1m-£10m",
+        "annualProfits": "£100,001-£2,000,000"
+      },
       "companyProfile": {
-        "sector": "General",
-        "stage": "Pre-Revenue",
-        "annualRevenues": "£1m-£5m",
-        "annualProfits": "£1m-£5m",
-        "region": "East Midlands",
-        "sweetSpot": "<£100,000"
+        "sector": "Technology",
+        "stage": "Post-Revenue Early Stage",
+        "annualRevenues": "£2m-£8m",
+        "annualProfits": "£500,000-£1.5m",
+        "region": "Greater London",
+        "sweetSpot": "£1,000,001-£5,000,000"
       }
     }
   }

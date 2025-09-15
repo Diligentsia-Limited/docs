@@ -67,34 +67,55 @@ description: 'Register a UK company with comprehensive investor matching data'
 <ResponseExample>
 ```json Success Response (sendEmail: true)
 {
-  "status": 200,
+  "code": 200,
   "message": "Company created successfully with InvestorMatch data",
-  "data": {
-    "companyId": "507f1f77bcf86cd799439011",
-    "userId": "507f1f77bcf86cd799439012",
-    "companyName": "Tech Startup Ltd",
-    "ukRegNo": "12345678",
-    "partnerId": "507f1f77bcf86cd799439013",
-    "partnerName": "Partner Company",
+  "body": {
+    "companyId": "68c80cb00a7610cd619b634f",
+    "userId": "68bfe6109b0c0c04554d393d",
+    "ukRegNo": "90974233",
+    "partnerId": "689af23667682c1bc5caa23b",
+    "partnerName": "KPMG Super Flow",
     "investorMatchCompleted": true,
     "fitReport": {
-      "topMatches": [
-        {
-          "investorId": "507f1f77bcf86cd799439014",
-          "investorName": "Venture Capital Fund",
-          "fitScorePercentage": 85,
-          "breakdown": {
-            "sectorScore": 100,
-            "stageScore": 100,
-            "sweetSpotScore": 75,
-            "regionScore": 100
-          }
-        }
-      ],
-      "averageFitScore": 72.5,
+      "investorId": "65d5a7dcc8d1efbe610208d0",
+      "investorName": "7percent Ventures Limited",
+      "fitScore": 3.5,
+      "fitScorePercentage": 58,
+      "priorityScore": 22,
+      "completenessScore": 19,
+      "breakdown": {
+        "sectorScore": 1,
+        "stageScore": 0,
+        "sweetSpotScore": 0,
+        "annualRevenuesScore": 1,
+        "annualProfitsScore": 1,
+        "regionScore": 0.5
+      },
+      "investorCriteria": {
+        "sectors": [
+          "General",
+          "Not Selected",
+          "Not Selected",
+          "Not Selected",
+          "Not Selected"
+        ],
+        "stages": [
+          "Pre-Seed",
+          "Seed",
+          "Venture Capital - Series A"
+        ],
+        "regions": [],
+        "sweetSpot": "£100,001-£1,000,000",
+        "annualRevenues": "Not known",
+        "annualProfits": "Not known"
+      },
       "companyProfile": {
-        "sector": "Software",
-        "stage": "Post-Revenue Early Stage"
+        "sector": "General",
+        "stage": "Pre-Revenue",
+        "annualRevenues": "£1m-£5m",
+        "annualProfits": "£1m-£5m",
+        "region": "East Midlands",
+        "sweetSpot": "<£100'000"
       }
     }
   }
@@ -103,35 +124,56 @@ description: 'Register a UK company with comprehensive investor matching data'
 
 ```json Success Response (sendEmail: false)
 {
-  "status": 200,
+  "code": 200,
   "message": "Company created successfully with InvestorMatch data",
-  "data": {
-    "companyId": "507f1f77bcf86cd799439011",
-    "userId": "507f1f77bcf86cd799439012",
-    "companyName": "Tech Startup Ltd",
-    "ukRegNo": "12345678",
-    "partnerId": "507f1f77bcf86cd799439013",
-    "partnerName": "Partner Company",
+  "body": {
+    "companyId": "68c80cb00a7610cd619b634f",
+    "userId": "68bfe6109b0c0c04554d393d",
+    "ukRegNo": "90974233",
+    "partnerId": "689af23667682c1bc5caa23b",
+    "partnerName": "KPMG Super Flow",
     "investorMatchCompleted": true,
     "loginLink": "https://dev.diligentsia.co.uk/completeInvestment/[investmentId]?companyId=[companyId]&cName=[companyName]&token=[authToken]&userId=[userId]",
     "fitReport": {
-      "topMatches": [
-        {
-          "investorId": "507f1f77bcf86cd799439014",
-          "investorName": "Venture Capital Fund",
-          "fitScorePercentage": 85,
-          "breakdown": {
-            "sectorScore": 100,
-            "stageScore": 100,
-            "sweetSpotScore": 75,
-            "regionScore": 100
-          }
-        }
-      ],
-      "averageFitScore": 72.5,
+      "investorId": "65d5a7dcc8d1efbe610208d0",
+      "investorName": "7percent Ventures Limited",
+      "fitScore": 3.5,
+      "fitScorePercentage": 58,
+      "priorityScore": 22,
+      "completenessScore": 19,
+      "breakdown": {
+        "sectorScore": 1,
+        "stageScore": 0,
+        "sweetSpotScore": 0,
+        "annualRevenuesScore": 1,
+        "annualProfitsScore": 1,
+        "regionScore": 0.5
+      },
+      "investorCriteria": {
+        "sectors": [
+          "General",
+          "Not Selected",
+          "Not Selected",
+          "Not Selected",
+          "Not Selected"
+        ],
+        "stages": [
+          "Pre-Seed",
+          "Seed",
+          "Venture Capital - Series A"
+        ],
+        "regions": [],
+        "sweetSpot": "£100,001-£1,000,000",
+        "annualRevenues": "Not known",
+        "annualProfits": "Not known"
+      },
       "companyProfile": {
-        "sector": "Software",
-        "stage": "Post-Revenue Early Stage"
+        "sector": "General",
+        "stage": "Pre-Revenue",
+        "annualRevenues": "£1m-£5m",
+        "annualProfits": "£1m-£5m",
+        "region": "East Midlands",
+        "sweetSpot": "<£100'000"
       }
     }
   }
@@ -140,7 +182,7 @@ description: 'Register a UK company with comprehensive investor matching data'
 
 ```json Error Response
 {
-  "status": 400,
+  "code": 400,
   "message": "Validation error",
   "error": {
     "code": "VALIDATION_ERROR",

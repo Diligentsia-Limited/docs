@@ -17,13 +17,12 @@
         "description": "Retrieve company information with comprehensive investor matching data",
         "parameters": [
           {
-            "name": "Authorization",
+            "name": "X-API-Key",
             "in": "header",
             "required": true,
-            "description": "Bearer JWT token for authentication",
+            "description": "Your partner API key for authentication",
             "schema": {
-              "type": "string",
-              "pattern": "^Bearer .+$"
+              "type": "string"
             }
           },
           {
@@ -87,90 +86,78 @@
                         "fitReport": {
                           "type": "object",
                           "properties": {
-                            "topMatches": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "investorId": {
-                                    "type": "string"
-                                  },
-                                  "investorName": {
-                                    "type": "string"
-                                  },
-                                  "fitScore": {
-                                    "type": "number"
-                                  },
-                                  "fitScorePercentage": {
-                                    "type": "number"
-                                  },
-                                  "priorityScore": {
-                                    "type": "number"
-                                  },
-                                  "completenessScore": {
-                                    "type": "number"
-                                  },
-                                  "breakdown": {
-                                    "type": "object",
-                                    "properties": {
-                                      "sectorScore": {
-                                        "type": "number"
-                                      },
-                                      "stageScore": {
-                                        "type": "number"
-                                      },
-                                      "sweetSpotScore": {
-                                        "type": "number"
-                                      },
-                                      "annualRevenuesScore": {
-                                        "type": "number"
-                                      },
-                                      "annualProfitsScore": {
-                                        "type": "number"
-                                      },
-                                      "regionScore": {
-                                        "type": "number"
-                                      }
-                                    }
-                                  },
-                                  "investorCriteria": {
-                                    "type": "object",
-                                    "properties": {
-                                      "sectors": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "stages": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "regions": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "sweetSpot": {
-                                        "type": "string"
-                                      },
-                                      "annualRevenues": {
-                                        "type": "string"
-                                      },
-                                      "annualProfits": {
-                                        "type": "string"
-                                      }
-                                    }
-                                  }
+                            "investorId": {
+                              "type": "string"
+                            },
+                            "investorName": {
+                              "type": "string"
+                            },
+                            "fitScore": {
+                              "type": "number"
+                            },
+                            "fitScorePercentage": {
+                              "type": "number"
+                            },
+                            "priorityScore": {
+                              "type": "number"
+                            },
+                            "completenessScore": {
+                              "type": "number"
+                            },
+                            "breakdown": {
+                              "type": "object",
+                              "properties": {
+                                "sectorScore": {
+                                  "type": "number"
+                                },
+                                "stageScore": {
+                                  "type": "number"
+                                },
+                                "sweetSpotScore": {
+                                  "type": "number"
+                                },
+                                "annualRevenuesScore": {
+                                  "type": "number"
+                                },
+                                "annualProfitsScore": {
+                                  "type": "number"
+                                },
+                                "regionScore": {
+                                  "type": "number"
                                 }
                               }
                             },
-                            "averageFitScore": {
-                              "type": "number",
-                              "description": "Average compatibility score across all investors"
+                            "investorCriteria": {
+                              "type": "object",
+                              "properties": {
+                                "sectors": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "stages": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "regions": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "sweetSpot": {
+                                  "type": "string"
+                                },
+                                "annualRevenues": {
+                                  "type": "string"
+                                },
+                                "annualProfits": {
+                                  "type": "string"
+                                }
+                              }
                             },
                             "companyProfile": {
                               "type": "object",
@@ -511,7 +498,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": {
+                    "code": {
                       "type": "integer",
                       "example": 200
                     },
@@ -519,7 +506,7 @@
                       "type": "string",
                       "example": "Company created successfully with InvestorMatch data"
                     },
-                    "data": {
+                    "body": {
                       "type": "object",
                       "properties": {
                         "companyId": {
@@ -557,43 +544,78 @@
                         "fitReport": {
                           "type": "object",
                           "properties": {
-                            "topMatches": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "investorId": {
-                                    "type": "string"
-                                  },
-                                  "investorName": {
-                                    "type": "string"
-                                  },
-                                  "fitScorePercentage": {
-                                    "type": "number"
-                                  },
-                                  "breakdown": {
-                                    "type": "object",
-                                    "properties": {
-                                      "sectorScore": {
-                                        "type": "number"
-                                      },
-                                      "stageScore": {
-                                        "type": "number"
-                                      },
-                                      "sweetSpotScore": {
-                                        "type": "number"
-                                      },
-                                      "regionScore": {
-                                        "type": "number"
-                                      }
-                                    }
-                                  }
+                            "investorId": {
+                              "type": "string"
+                            },
+                            "investorName": {
+                              "type": "string"
+                            },
+                            "fitScore": {
+                              "type": "number"
+                            },
+                            "fitScorePercentage": {
+                              "type": "number"
+                            },
+                            "priorityScore": {
+                              "type": "number"
+                            },
+                            "completenessScore": {
+                              "type": "number"
+                            },
+                            "breakdown": {
+                              "type": "object",
+                              "properties": {
+                                "sectorScore": {
+                                  "type": "number"
+                                },
+                                "stageScore": {
+                                  "type": "number"
+                                },
+                                "sweetSpotScore": {
+                                  "type": "number"
+                                },
+                                "annualRevenuesScore": {
+                                  "type": "number"
+                                },
+                                "annualProfitsScore": {
+                                  "type": "number"
+                                },
+                                "regionScore": {
+                                  "type": "number"
                                 }
                               }
                             },
-                            "averageFitScore": {
-                              "type": "number",
-                              "description": "Average compatibility score across all investors"
+                            "investorCriteria": {
+                              "type": "object",
+                              "properties": {
+                                "sectors": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "stages": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "regions": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                },
+                                "sweetSpot": {
+                                  "type": "string"
+                                },
+                                "annualRevenues": {
+                                  "type": "string"
+                                },
+                                "annualProfits": {
+                                  "type": "string"
+                                }
+                              }
                             },
                             "companyProfile": {
                               "type": "object",
@@ -602,6 +624,18 @@
                                   "type": "string"
                                 },
                                 "stage": {
+                                  "type": "string"
+                                },
+                                "annualRevenues": {
+                                  "type": "string"
+                                },
+                                "annualProfits": {
+                                  "type": "string"
+                                },
+                                "region": {
+                                  "type": "string"
+                                },
+                                "sweetSpot": {
                                   "type": "string"
                                 }
                               }
@@ -622,7 +656,7 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": {
+                    "code": {
                       "type": "integer",
                       "example": 400
                     },

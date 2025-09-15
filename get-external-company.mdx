@@ -1,5 +1,5 @@
 ---
-title: 'Get External Company'
+title: 'Get Partner Company'
 description: 'Retrieve company information with comprehensive investor matching data'
 icon: 'magnifying-glass'
 ---
@@ -13,7 +13,7 @@ The Get External Company API enables partners to retrieve detailed company infor
     Retrieve complete company profile from Companies House
   </Card>
   <Card title="Investor Matching" icon="chart-line" color="#16a34a">
-    Get top 10 matched investors with fit scores
+    Get best matched investor with fit scores
   </Card>
   <Card title="Detailed Analytics" icon="chart-pie" color="#dc2626">
     View comprehensive scoring breakdown
@@ -28,7 +28,7 @@ The Get External Company API enables partners to retrieve detailed company infor
   
   **URL:** `https://devserver.diligentsia.co.uk/api/v1/company/{ukRegNo}`
   
-  **Authentication:** Required (Authorization: Bearer JWT Token)
+  **Authentication:** Required (X-API-Key header)
   
   
 </Card>
@@ -47,7 +47,7 @@ The Get External Company API enables partners to retrieve detailed company infor
 
 | Header | Value | Required | Description |
 |--------|-------|----------|-------------|
-| `Authorization` | `Bearer {JWT_TOKEN}` | **Yes** | Your JWT authentication token |
+| `X-API-Key` | `{API_KEY}` | **Yes** | Your partner API key for authentication |
 
 ## 📥 Response Format
 
@@ -93,24 +93,28 @@ The response includes comprehensive company data with investor matching results:
     
     | Field | Type | Description |
     |-------|------|-------------|
-    | `topMatches` | array | Top 10 investor matches sorted by fit score |
-    | `averageFitScore` | number | Average compatibility score across all investors |
-    | `companyProfile` | object | Company's InvestorMatch profile data |
-    
-    ### Match Details
-    
-    Each match in `topMatches` includes:
-    
-    | Field | Type | Description |
-    |-------|------|-------------|
-    | `investorId` | string | Unique investor identifier |
-    | `investorName` | string | Name of the investor firm |
+    | `investorId` | string | Best matched investor ID |
+    | `investorName` | string | Name of the best matched investor firm |
     | `fitScore` | number | Raw fit score (0-6) |
     | `fitScorePercentage` | number | Percentage score (0-100) |
     | `priorityScore` | number | Priority ranking score |
     | `completenessScore` | number | Data completeness score |
     | `breakdown` | object | Detailed scoring by criteria |
     | `investorCriteria` | object | Investor's preferences |
+    | `companyProfile` | object | Company's InvestorMatch profile data |
+    
+    ### Scoring Details
+
+    The breakdown object includes:
+
+    | Field | Type | Description |
+    |-------|------|-------------|
+    | `sectorScore` | number | Sector alignment score (0-1) |
+    | `stageScore` | number | Stage alignment score (0-1) |
+    | `sweetSpotScore` | number | Investment amount alignment score (0-1) |
+    | `annualRevenuesScore` | number | Revenue alignment score (0-1) |
+    | `annualProfitsScore` | number | Profit alignment score (0-1) |
+    | `regionScore` | number | Regional alignment score (0-1) |
     
   </Tab>
 </Tabs>
@@ -122,72 +126,55 @@ The response includes comprehensive company data with investor matching results:
   "code": 200,
   "message": "Company found with InvestorMatch data",
   "body": {
-    "companyId": "68c419f024594d617a36c6c6",
-    "userId": "68bfe6109b0c0c04554d393d",
-    "companyName": "Example Tech Ltd",
-    "ukRegNo": "90654233",
-    "partnerId": "68a43c98c93d17364464e3d8",
-    "partnerName": "CowGills Super Flow",
+    "companyId": "67b329f024594d617a36c5d2",
+    "userId": "67afe5109b0c0c04554d382a",
+    "ukRegNo": "85432167",
+    "partnerId": "67943c98c93d17364464e2b7",
+    "partnerName": "TechFlow Partners",
     "investorMatchCompleted": true,
     "fitReport": {
-      "topMatches": [
-        {
-          "investorId": "65d5a962c8d1efbe61021585",
-          "investorName": "YFM Equity Partners",
-          "fitScore": 4,
-          "fitScorePercentage": 67,
-          "priorityScore": 24,
-          "completenessScore": 21,
-          "breakdown": {
-            "sectorScore": 1,
-            "stageScore": 0,
-            "sweetSpotScore": 0.5,
-            "annualRevenuesScore": 1,
-            "annualProfitsScore": 1,
-            "regionScore": 0.5
-          },
-          "investorCriteria": {
-            "sectors": ["General", "Data & Analytics", "Life Science", "Manufacturing", "Retail"],
-            "stages": ["Private Equity", "Not Selected", "Not Selected"],
-            "regions": [],
-            "sweetSpot": "Not known",
-            "annualRevenues": "Not known",
-            "annualProfits": "£1m-£5m"
-          }
-        },
-        {
-          "investorId": "65d5a7dcc8d1efbe610208d0",
-          "investorName": "7percent Ventures Limited",
-          "fitScore": 3.5,
-          "fitScorePercentage": 58,
-          "priorityScore": 22,
-          "completenessScore": 19,
-          "breakdown": {
-            "sectorScore": 1,
-            "stageScore": 0,
-            "sweetSpotScore": 0,
-            "annualRevenuesScore": 1,
-            "annualProfitsScore": 1,
-            "regionScore": 0.5
-          },
-          "investorCriteria": {
-            "sectors": ["General"],
-            "stages": ["Pre-Seed", "Seed", "Venture Capital - Series A"],
-            "regions": [],
-            "sweetSpot": "£100,001-£1,000,000",
-            "annualRevenues": "Not known",
-            "annualProfits": "Not known"
-          }
-        }
-      ],
-      "averageFitScore": 40.3,
+      "investorId": "66c4a7dcc8d1efbe610203f1",
+      "investorName": "Innovation Capital Partners",
+      "fitScore": 4.2,
+      "fitScorePercentage": 70,
+      "priorityScore": 28,
+      "completenessScore": 24,
+      "breakdown": {
+        "sectorScore": 1,
+        "stageScore": 0.5,
+        "sweetSpotScore": 1,
+        "annualRevenuesScore": 0.8,
+        "annualProfitsScore": 0.7,
+        "regionScore": 0.2
+      },
+      "investorCriteria": {
+        "sectors": [
+          "Technology",
+          "Software",
+          "AI & Machine Learning",
+          "Data & Analytics",
+          "Not Selected"
+        ],
+        "stages": [
+          "Seed",
+          "Venture Capital - Series A",
+          "Venture Capital - Series B"
+        ],
+        "regions": [
+          "Greater London",
+          "South East England"
+        ],
+        "sweetSpot": "£500,001-£2,000,000",
+        "annualRevenues": "£500,001-£2m",
+        "annualProfits": "£100,001-£1,000,000"
+      },
       "companyProfile": {
-        "sector": "General",
-        "stage": "Pre-Revenue",
-        "annualRevenues": "£1m-£5m",
-        "annualProfits": "£1m-£5m",
-        "region": "East Midlands",
-        "sweetSpot": "<£100,000"
+        "sector": "Technology",
+        "stage": "Post-Revenue Early Stage",
+        "annualRevenues": "£750,000-£1.5m",
+        "annualProfits": "£200,000-£800,000",
+        "region": "North West England",
+        "sweetSpot": "£1,000,001-£3,000,000"
       }
     }
   }
@@ -257,7 +244,7 @@ The fit scoring system evaluates compatibility across 6 key dimensions:
 
 <Steps>
   <Step title="Prepare Request">
-    Format the UK registration number and prepare authentication headers
+    Format the UK registration number and prepare X-API-Key header
   </Step>
   <Step title="Call API">
     Make GET request to `/api/v1/company/{ukRegNo}` with API key
@@ -266,7 +253,7 @@ The fit scoring system evaluates compatibility across 6 key dimensions:
     Parse the response to extract company and investor matching data
   </Step>
   <Step title="Display Results">
-    Present top investor matches with fit scores to the user
+    Present the best investor match with fit score to the user
   </Step>
 </Steps>
 
