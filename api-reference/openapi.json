@@ -17,22 +17,12 @@
         "description": "Retrieve company information with comprehensive investor matching data",
         "parameters": [
           {
-<<<<<<< HEAD
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "description": "Bearer JWT token for authentication",
-            "schema": {
-              "type": "string",
-              "pattern": "^Bearer .+$"
-=======
             "name": "X-API-Key",
             "in": "header",
             "required": true,
             "description": "Your partner API key for authentication",
             "schema": {
               "type": "string"
->>>>>>> 0ea084ebb2aa80e89e5c499e8d4b095160239bd8
             }
           },
           {
