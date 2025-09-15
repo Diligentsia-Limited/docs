@@ -1,0 +1,151 @@
+---
+title: 'Create Company with InvestorMatch'
+openapi: 'POST /api/v1/company/create-with-investormatch'
+description: 'Register a UK company with comprehensive investor matching data'
+---
+
+<Note>
+  This endpoint requires authentication via X-API-Key header. Contact support@diligentsia.com to obtain your partner API key.
+</Note>
+
+<Info>
+  **New Feature**: The `sendEmail` flag (optional, default: `true`) controls email notifications:
+  - When `true`: User receives an activation email with login instructions
+  - When `false`: API returns a `loginLink` in the response for direct access
+</Info>
+
+<RequestExample>
+```json Request with Email
+{
+  "sendEmail": true,
+  "user": {
+    "email": "john.doe@example.com",
+    "firstName": "John",
+    "lastName": "Doe"
+  },
+  "company": {
+    "ukRegNo": "12345678",
+    "companyWebsite": "https://techstartup.co.uk",
+    "company5Words": "Innovative software development consulting services"
+  },
+  "investorMatch": {
+    "sector": "Software",
+    "stage": "Post-Revenue Early Stage",
+    "annualRevenues": "£1m-£5m",
+    "annualProfits": "£100'000-£500'000",
+    "region": "Greater London",
+    "sweetSpot": "£1'000'001-£5'000'000"
+  }
+}
+```
+
+```json Request without Email
+{
+  "sendEmail": false,
+  "user": {
+    "email": "john.doe@example.com",
+    "firstName": "John",
+    "lastName": "Doe"
+  },
+  "company": {
+    "ukRegNo": "12345678",
+    "companyWebsite": "https://techstartup.co.uk",
+    "company5Words": "Innovative software development consulting services"
+  },
+  "investorMatch": {
+    "sector": "Software",
+    "stage": "Post-Revenue Early Stage",
+    "annualRevenues": "£1m-£5m",
+    "annualProfits": "£100'000-£500'000",
+    "region": "Greater London",
+    "sweetSpot": "£1'000'001-£5'000'000"
+  }
+}
+```
+</RequestExample>
+
+<ResponseExample>
+```json Success Response (sendEmail: true)
+{
+  "status": 200,
+  "message": "Company created successfully with InvestorMatch data",
+  "data": {
+    "companyId": "507f1f77bcf86cd799439011",
+    "userId": "507f1f77bcf86cd799439012",
+    "companyName": "Tech Startup Ltd",
+    "ukRegNo": "12345678",
+    "partnerId": "507f1f77bcf86cd799439013",
+    "partnerName": "Partner Company",
+    "investorMatchCompleted": true,
+    "fitReport": {
+      "topMatches": [
+        {
+          "investorId": "507f1f77bcf86cd799439014",
+          "investorName": "Venture Capital Fund",
+          "fitScorePercentage": 85,
+          "breakdown": {
+            "sectorScore": 100,
+            "stageScore": 100,
+            "sweetSpotScore": 75,
+            "regionScore": 100
+          }
+        }
+      ],
+      "averageFitScore": 72.5,
+      "companyProfile": {
+        "sector": "Software",
+        "stage": "Post-Revenue Early Stage"
+      }
+    }
+  }
+}
+```
+
+```json Success Response (sendEmail: false)
+{
+  "status": 200,
+  "message": "Company created successfully with InvestorMatch data",
+  "data": {
+    "companyId": "507f1f77bcf86cd799439011",
+    "userId": "507f1f77bcf86cd799439012",
+    "companyName": "Tech Startup Ltd",
+    "ukRegNo": "12345678",
+    "partnerId": "507f1f77bcf86cd799439013",
+    "partnerName": "Partner Company",
+    "investorMatchCompleted": true,
+    "loginLink": "https://dev.diligentsia.co.uk/completeInvestment/[investmentId]?companyId=[companyId]&cName=[companyName]&token=[authToken]&userId=[userId]",
+    "fitReport": {
+      "topMatches": [
+        {
+          "investorId": "507f1f77bcf86cd799439014",
+          "investorName": "Venture Capital Fund",
+          "fitScorePercentage": 85,
+          "breakdown": {
+            "sectorScore": 100,
+            "stageScore": 100,
+            "sweetSpotScore": 75,
+            "regionScore": 100
+          }
+        }
+      ],
+      "averageFitScore": 72.5,
+      "companyProfile": {
+        "sector": "Software",
+        "stage": "Post-Revenue Early Stage"
+      }
+    }
+  }
+}
+```
+
+```json Error Response
+{
+  "status": 400,
+  "message": "Validation error",
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "details": "UK company registration number (ukRegNo) must be 6-8 alphanumeric characters"
+  }
+}
+```
+</ResponseExample>

@@ -1,0 +1,280 @@
+---
+title: 'Get External Company'
+description: 'Retrieve company information with comprehensive investor matching data'
+icon: 'magnifying-glass'
+---
+
+## 🔍 Overview
+
+The Get External Company API enables partners to retrieve detailed company information including comprehensive investor matching data and fit scores. This endpoint provides instant access to company profiles with real-time investor compatibility analysis based on multiple business metrics.
+
+<CardGroup cols={3}>
+  <Card title="Company Details" icon="building-columns" color="#0285c7">
+    Retrieve complete company profile from Companies House
+  </Card>
+  <Card title="Investor Matching" icon="chart-line" color="#16a34a">
+    Get top 10 matched investors with fit scores
+  </Card>
+  <Card title="Detailed Analytics" icon="chart-pie" color="#dc2626">
+    View comprehensive scoring breakdown
+  </Card>
+</CardGroup>
+
+## 📍 Endpoint Details
+
+<Card title="GET /api/v1/company/{ukRegNo}" icon="arrow-right">
+  
+  **Method:** `GET`
+  
+  **URL:** `https://devserver.diligentsia.co.uk/api/v1/company/{ukRegNo}`
+  
+  **Authentication:** Required (Authorization: Bearer JWT Token)
+  
+  
+</Card>
+
+## 🔑 Path Parameters
+
+| Parameter | Type | Required | Description | Example |
+|-----------|------|----------|-------------|---------|
+| `ukRegNo` | string | **Yes** | UK company registration number | `90654233` |
+
+<Info>
+  The UK registration number should be provided without spaces or special characters. The system will automatically normalize the format.
+</Info>
+
+## 🔐 Authentication
+
+| Header | Value | Required | Description |
+|--------|-------|----------|-------------|
+| `Authorization` | `Bearer {JWT_TOKEN}` | **Yes** | Your JWT authentication token |
+
+## 📥 Response Format
+
+### ✅ Success Response (200)
+
+The response includes comprehensive company data with investor matching results:
+
+<Tabs>
+  <Tab title="Company Information">
+    
+    ### Core Company Data
+    
+    | Field | Type | Description |
+    |-------|------|-------------|
+    | `companyId` | string | Unique identifier for the company |
+    | `userId` | string | Associated user identifier |
+    | `companyName` | string | Company name from Companies House |
+    | `ukRegNo` | string | UK registration number |
+    | `partnerId` | string | Partner organization ID |
+    | `partnerName` | string | Partner organization name |
+    
+  </Tab>
+  
+  <Tab title="InvestorMatch Status">
+    
+    ### Match Completion Status
+    
+    | Field | Type | Description |
+    |-------|------|-------------|
+    | `investorMatchCompleted` | boolean | Whether all 6 InvestorMatch questions are answered |
+    
+    <Note>
+      When `investorMatchCompleted` is `true`, the response includes a comprehensive `fitReport` with investor matching data.
+    </Note>
+    
+  </Tab>
+  
+  <Tab title="Fit Report">
+    
+    ### Investor Matching Results
+    
+    The `fitReport` object contains:
+    
+    | Field | Type | Description |
+    |-------|------|-------------|
+    | `topMatches` | array | Top 10 investor matches sorted by fit score |
+    | `averageFitScore` | number | Average compatibility score across all investors |
+    | `companyProfile` | object | Company's InvestorMatch profile data |
+    
+    ### Match Details
+    
+    Each match in `topMatches` includes:
+    
+    | Field | Type | Description |
+    |-------|------|-------------|
+    | `investorId` | string | Unique investor identifier |
+    | `investorName` | string | Name of the investor firm |
+    | `fitScore` | number | Raw fit score (0-6) |
+    | `fitScorePercentage` | number | Percentage score (0-100) |
+    | `priorityScore` | number | Priority ranking score |
+    | `completenessScore` | number | Data completeness score |
+    | `breakdown` | object | Detailed scoring by criteria |
+    | `investorCriteria` | object | Investor's preferences |
+    
+  </Tab>
+</Tabs>
+
+## 📊 Example Response
+
+```json
+{
+  "code": 200,
+  "message": "Company found with InvestorMatch data",
+  "body": {
+    "companyId": "68c419f024594d617a36c6c6",
+    "userId": "68bfe6109b0c0c04554d393d",
+    "companyName": "Example Tech Ltd",
+    "ukRegNo": "90654233",
+    "partnerId": "68a43c98c93d17364464e3d8",
+    "partnerName": "CowGills Super Flow",
+    "investorMatchCompleted": true,
+    "fitReport": {
+      "topMatches": [
+        {
+          "investorId": "65d5a962c8d1efbe61021585",
+          "investorName": "YFM Equity Partners",
+          "fitScore": 4,
+          "fitScorePercentage": 67,
+          "priorityScore": 24,
+          "completenessScore": 21,
+          "breakdown": {
+            "sectorScore": 1,
+            "stageScore": 0,
+            "sweetSpotScore": 0.5,
+            "annualRevenuesScore": 1,
+            "annualProfitsScore": 1,
+            "regionScore": 0.5
+          },
+          "investorCriteria": {
+            "sectors": ["General", "Data & Analytics", "Life Science", "Manufacturing", "Retail"],
+            "stages": ["Private Equity", "Not Selected", "Not Selected"],
+            "regions": [],
+            "sweetSpot": "Not known",
+            "annualRevenues": "Not known",
+            "annualProfits": "£1m-£5m"
+          }
+        },
+        {
+          "investorId": "65d5a7dcc8d1efbe610208d0",
+          "investorName": "7percent Ventures Limited",
+          "fitScore": 3.5,
+          "fitScorePercentage": 58,
+          "priorityScore": 22,
+          "completenessScore": 19,
+          "breakdown": {
+            "sectorScore": 1,
+            "stageScore": 0,
+            "sweetSpotScore": 0,
+            "annualRevenuesScore": 1,
+            "annualProfitsScore": 1,
+            "regionScore": 0.5
+          },
+          "investorCriteria": {
+            "sectors": ["General"],
+            "stages": ["Pre-Seed", "Seed", "Venture Capital - Series A"],
+            "regions": [],
+            "sweetSpot": "£100,001-£1,000,000",
+            "annualRevenues": "Not known",
+            "annualProfits": "Not known"
+          }
+        }
+      ],
+      "averageFitScore": 40.3,
+      "companyProfile": {
+        "sector": "General",
+        "stage": "Pre-Revenue",
+        "annualRevenues": "£1m-£5m",
+        "annualProfits": "£1m-£5m",
+        "region": "East Midlands",
+        "sweetSpot": "<£100,000"
+      }
+    }
+  }
+}
+```
+
+## 🎯 Scoring Breakdown
+
+### Understanding Fit Scores
+
+The fit scoring system evaluates compatibility across 6 key dimensions:
+
+<AccordionGroup>
+  <Accordion title="Sector Score (0-1)">
+    - **1.0:** Perfect match - Company sector aligns with investor preferences
+    - **0.5:** Partial match - Some sector alignment
+    - **0.0:** No match - Sectors don't align
+  </Accordion>
+  
+  <Accordion title="Stage Score (0-1)">
+    - **1.0:** Perfect match - Company stage matches investor focus
+    - **0.5:** Partial match - Some stage alignment
+    - **0.0:** No match - Stage doesn't align
+  </Accordion>
+  
+  <Accordion title="Sweet Spot Score (0-1)">
+    - **1.0:** Perfect match - Investment amount sought matches investor range
+    - **0.5:** Partial match - Some overlap in investment ranges
+    - **0.0:** No match - Investment ranges don't align
+  </Accordion>
+  
+  <Accordion title="Annual Revenues Score (0-1)">
+    - **1.0:** Perfect match - Company revenues match investor criteria
+    - **0.5:** Partial match - Some revenue alignment
+    - **0.0:** No match - Revenue ranges don't align
+  </Accordion>
+  
+  <Accordion title="Annual Profits Score (0-1)">
+    - **1.0:** Perfect match - Company profits match investor criteria
+    - **0.5:** Partial match - Some profit alignment
+    - **0.0:** No match - Profit ranges don't align
+  </Accordion>
+  
+  <Accordion title="Region Score (0-1)">
+    - **1.0:** Perfect match - Company region matches investor focus
+    - **0.5:** Partial match - Some regional alignment
+    - **0.0:** No match - Regions don't align
+  </Accordion>
+</AccordionGroup>
+
+### Score Calculations
+
+<CardGroup cols={2}>
+  <Card title="Fit Score Percentage" icon="percentage">
+    Calculated as: `(Total Score / 6) × 100`
+    
+    Range: 0-100%
+  </Card>
+  <Card title="Priority Score" icon="ranking-star">
+    Weighted combination of fit score and data completeness
+    
+    Higher values indicate better matches
+  </Card>
+</CardGroup>
+
+## 🔄 Integration Flow
+
+<Steps>
+  <Step title="Prepare Request">
+    Format the UK registration number and prepare authentication headers
+  </Step>
+  <Step title="Call API">
+    Make GET request to `/api/v1/company/{ukRegNo}` with API key
+  </Step>
+  <Step title="Process Response">
+    Parse the response to extract company and investor matching data
+  </Step>
+  <Step title="Display Results">
+    Present top investor matches with fit scores to the user
+  </Step>
+</Steps>
+
+
+## 🔗 Related Endpoints
+
+<CardGroup cols={1}>
+  <Card title="Create Company" icon="plus" href="/company-registration-api">
+    Register new companies with InvestorMatch data
+  </Card>
+</CardGroup>
