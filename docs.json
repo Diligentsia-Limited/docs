@@ -53,12 +53,7 @@
     ],
     "global": {
       "anchors": [
-        {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
-        }
-      ]
+              ]
     }
   },
   "logo": {
