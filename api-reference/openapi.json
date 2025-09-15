@@ -318,13 +318,12 @@
         "description": "Retrieve basic company information by registration number",
         "parameters": [
           {
-            "name": "Authorization",
+            "name": "X-API-Key",
             "in": "header",
             "required": true,
-            "description": "Bearer JWT token for authentication",
+            "description": "Your partner API key for authentication",
             "schema": {
-              "type": "string",
-              "pattern": "^Bearer .+$"
+              "type": "string"
             }
           },
           {
