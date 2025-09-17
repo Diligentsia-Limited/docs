@@ -26,7 +26,7 @@ The Company Registration API enables partners to seamlessly register UK companie
   
   **Method:** `POST`
   
-  **URL:** `https://devserver.diligentsia.co.uk/api/v1/company/create-with-investormatch`
+  **URL:** `https://prodserver.diligentsia.co.uk/api/v1/company/create-with-investormatch`
   
   **Authentication:** Required (X-API-Key header)
     
@@ -129,14 +129,66 @@ The request body consists of three main sections:
 
 <AccordionGroup>
   <Accordion title="Business Sectors">
-    Available sectors include:
-    - Software, SaaS, Enterprise Software
-    - FinTech, InsurTech, Financial Services
-    - Healthcare, Medical Device, Biotechnology
-    - E-Commerce, Marketplace, Retail
-    - Artificial Intelligence, Machine Learning
-    - Education, Media & Entertainment
-    - And 40+ more sectors
+    <div style={{columnCount: 2, columnGap: '20px'}}>
+      • General<br/>
+      • Advertising<br/>
+      • Ag Tech<br/>
+      • Analytics<br/>
+      • Artificial Intelligence<br/>
+      • Big Data<br/>
+      • Biotechnology<br/>
+      • Blockchain<br/>
+      • Commerce & Shopping<br/>
+      • Community & Lifestyle<br/>
+      • Consumer Electronics<br/>
+      • Consumer Goods<br/>
+      • Cryptocurrency<br/>
+      • Cybersecurity<br/>
+      • Data & Analytics<br/>
+      • E-Commerce<br/>
+      • Education<br/>
+      • Energy<br/>
+      • Enterprise Software<br/>
+      • Events<br/>
+      • Female Focus<br/>
+      • Finance<br/>
+      • Financial Services<br/>
+      • FinTech<br/>
+      • Food & Beverage<br/>
+      • Gaming<br/>
+      • Gov Tech<br/>
+      • Hardware<br/>
+      • Healthcare<br/>
+      • Information Technology<br/>
+      • Internet Services<br/>
+      • Insurtech<br/>
+      • Lending & Investments<br/>
+      • Machine Learning<br/>
+      • Manufacturing<br/>
+      • Markplace<br/>
+      • Media & Entertainment<br/>
+      • Medical<br/>
+      • Medical Device<br/>
+      • Mobile<br/>
+      • Mobile Apps<br/>
+      • Payments<br/>
+      • Privacy & Security<br/>
+      • Professional Services<br/>
+      • Prop Tech<br/>
+      • Real Estate<br/>
+      • Retail<br/>
+      • SaaS<br/>
+      • Sales & Marketing<br/>
+      • Science & Engineering<br/>
+      • Smart Cities<br/>
+      • Software<br/>
+      • Sustainability<br/>
+      • Transportation<br/>
+      • Video<br/>
+      • Wellness<br/>
+      • Other<br/>
+      • Not Selected
+    </div>
   </Accordion>
   
   <Accordion title="Company Stages">
@@ -146,36 +198,46 @@ The request body consists of three main sections:
   </Accordion>
   
   <Accordion title="Revenue & Profit Ranges">
-    - Nil
-    - Less than £100,000
-    - £100,000-£500,000
-    - £500,001-£1m
-    - £1m-£5m
-    - £5m-£10m
-    - £10m-£20m
-    - £20m-£100m
-    - £100m+
+    <div>
+      - Nil<br/>
+      - &lt;£100'000<br/>
+      - £100'000-£500'000<br/>
+      - £500'001-£1m<br/>
+      - &gt;£1m ARR<br/>
+      - £1m-£5m<br/>
+      - £5m-£10m<br/>
+      - £10m-£20m<br/>
+      - £20m-£100m<br/>
+      - £100m+
+    </div>
   </Accordion>
   
   <Accordion title="UK Regions">
-    - Nationwide (UK-wide)
-    - Greater London
-    - South East/West England
-    - North East/West England
-    - East/West Midlands
-    - Yorkshire and the Humber
-    - Scotland, Wales, Northern Ireland
-    - Channel Islands, Isle of Man
+      - Nationwide (UK-wide)<br/>
+      - East Midlands<br/>
+      - West Midlands<br/>
+      - East of England<br/>
+      - South East England<br/>
+      - South West England<br/>
+      - North West England<br/>
+      - North East England<br/>
+      - Yorkshire and the Humber<br/>
+      - Greater London<br/>
+      - Scotland<br/>
+      - Wales<br/>
+      - Northern Ireland<br/>
+      - Channel Islands (Jersey & Guernsey)<br/>
+      - Isle of Man
   </Accordion>
   
   <Accordion title="Investment Amounts">
-    - Less than £100,000
-    - £100,001-£1,000,000
-    - £1,000,001-£5,000,000
-    - £5,000,001-£20,000,000
-    - £20,000,001-£100,000,000
-    - More than £100,000,001
-    - Not known
+      - &lt;£100'000<br/>
+      - £100'001-£1'000'000<br/>
+      - £1'000'001-£5'000'000<br/>
+      - £5'000'001-£20'000'000<br/>
+      - £20'000'001-£100'000'000<br/>
+      - &gt;£100'000'001<br/>
+      - Not known
   </Accordion>
 </AccordionGroup>
 
@@ -199,9 +261,9 @@ The request body consists of three main sections:
     "sector": "Software",
     "stage": "Post-Revenue Early Stage",
     "annualRevenues": "£1m-£5m",
-    "annualProfits": "£100,000-£500,000",
+    "annualProfits": "£100'000-£500'000",
     "region": "Greater London",
-    "sweetSpot": "£1,000,001-£5,000,000"
+    "sweetSpot": "£1'000'001-£5'000'000"
   }
 }
 ```
@@ -224,9 +286,9 @@ The request body consists of three main sections:
     "sector": "Software",
     "stage": "Post-Revenue Early Stage",
     "annualRevenues": "£1m-£5m",
-    "annualProfits": "£100,000-£500,000",
+    "annualProfits": "£100'000-£500'000",
     "region": "Greater London",
-    "sweetSpot": "£1,000,001-£5,000,000"
+    "sweetSpot": "£1'000'001-£5'000'000"
   }
 }
 ```
@@ -276,7 +338,7 @@ The request body consists of three main sections:
           "Venture Capital - Series A"
         ],
         "regions": [],
-        "sweetSpot": "£100,001-£1,000,000",
+        "sweetSpot": "£100'001-£1'000'000",
         "annualRevenues": "Not known",
         "annualProfits": "Not known"
       },
@@ -335,7 +397,7 @@ The request body consists of three main sections:
           "Venture Capital - Series A"
         ],
         "regions": [],
-        "sweetSpot": "£100,001-£1,000,000",
+        "sweetSpot": "£100'001-£1'000'000",
         "annualRevenues": "Not known",
         "annualProfits": "Not known"
       },

@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://devserver.diligentsia.co.uk"
+      "url": "https://prodserver.diligentsia.co.uk"
     }
   ],
   "paths": {
