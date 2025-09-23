@@ -181,8 +181,45 @@
                                   "type": "string"
                                 }
                               }
+                            },
+                            "fitReportPath": {
+                              "type": "string",
+                              "description": "URL to the generated fit report PDF"
                             }
                           }
+                        },
+                        "kpiReport": {
+                          "type": "array",
+                          "description": "Array of KPI objects with metrics",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "title": {
+                                "type": "string",
+                                "description": "KPI title"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Detailed KPI description"
+                              },
+                              "calculation": {
+                                "type": "string",
+                                "description": "How the KPI is calculated"
+                              },
+                              "metric": {
+                                "type": "string",
+                                "description": "Expected ranges and benchmarks"
+                              }
+                            }
+                          }
+                        },
+                        "fitReportPath": {
+                          "type": "string",
+                          "description": "URL to the generated fit report PDF"
+                        },
+                        "kpiReportPath": {
+                          "type": "string",
+                          "description": "URL to the generated KPI report PDF"
                         }
                       }
                     }
@@ -698,8 +735,41 @@
                                   "type": "string"
                                 }
                               }
+                            },
+                            "fitReportPath": {
+                              "type": "string",
+                              "description": "URL to the generated fit report PDF"
                             }
                           }
+                        },
+                        "kpiReport": {
+                          "type": "array",
+                          "description": "Array of KPI objects with metrics",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "title": {
+                                "type": "string",
+                                "description": "KPI title"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Detailed KPI description"
+                              },
+                              "calculation": {
+                                "type": "string",
+                                "description": "How the KPI is calculated"
+                              },
+                              "metric": {
+                                "type": "string",
+                                "description": "Expected ranges and benchmarks"
+                              }
+                            }
+                          }
+                        },
+                        "kpiReportPath": {
+                          "type": "string",
+                          "description": "URL to the generated KPI report PDF"
                         }
                       }
                     }

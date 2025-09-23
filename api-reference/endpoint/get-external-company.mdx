@@ -9,7 +9,7 @@ description: 'Retrieve company information with comprehensive investor matching 
 </Note>
 
 <Info>
-  This endpoint returns comprehensive company data including investor matching scores and detailed fit reports when InvestorMatch data is available.
+  This endpoint returns comprehensive company data including investor matching scores, detailed fit reports, and KPI reports when InvestorMatch data is available.
 </Info>
 
 <RequestExample>
@@ -56,6 +56,7 @@ print(data)
   "body": {
     "companyId": "67b419f024594d617a36c8d5",
     "userId": "67afe6109b0c0c04554d392c",
+    "companyName": "UK SEARCH LIMITED",
     "ukRegNo": "87654321",
     "partnerId": "67a43c98c93d17364464e4c9",
     "partnerName": "TechVentures Partners",
@@ -79,9 +80,7 @@ print(data)
         "sectors": [
           "Technology",
           "SaaS",
-          "Enterprise Software",
-          "Not Selected",
-          "Not Selected"
+          "Enterprise Software"
         ],
         "stages": [
           "Seed",
@@ -92,9 +91,9 @@ print(data)
           "Greater London",
           "South East England"
         ],
-        "sweetSpot": "£500'001-£5'000'000",
+        "sweetSpot": "£500,001-£5,000,000",
         "annualRevenues": "£1m-£10m",
-        "annualProfits": "£100'001-£2'000'000"
+        "annualProfits": "£100,001-£2,000,000"
       },
       "companyProfile": {
         "sector": "Technology",
@@ -103,8 +102,73 @@ print(data)
         "annualProfits": "£500'000-£1.5m",
         "region": "Greater London",
         "sweetSpot": "£1'000'001-£5'000'000"
+      },
+      "fitReportPath": "https://diligentsia-external-reports.s3.ap-northeast-1.amazonaws.com/development/fit/67b419f024594d617a36c8d5/fit-report-1758276036850.pdf?AWSAccessKeyId=AKIA2MOU74NBYGNOPY6G&Expires=1758290436&Signature=aDZGioL5XwKmNPPgrWg8HneU4gs%3D"
+    },
+    "kpiReport": [
+      {
+        "title": "Innovation in Software Solutions",
+        "name": "Measure the ability to deliver cutting-edge software solutions",
+        "calculation": "Track new features or technologies implemented over time",
+        "metric": "1-2 major innovations per quarter for small firms"
+      },
+      {
+        "title": "Client Satisfaction and Feedback",
+        "name": "Evaluate client satisfaction levels",
+        "calculation": "Surveys and NPS scores",
+        "metric": "NPS score of 40-70 is good"
+      },
+      {
+        "title": "Project Delivery Timeliness",
+        "name": "Monitor adherence to project timelines",
+        "calculation": "Projects delivered on time / total projects",
+        "metric": "90-95% on-time delivery rate"
+      },
+      {
+        "title": "Cloud Adoption Success Rate",
+        "name": "Track cloud implementation success",
+        "calculation": "Successful cloud projects / total cloud projects",
+        "metric": "85-95% success rate"
+      },
+      {
+        "title": "Consulting Engagements Won",
+        "name": "New consulting projects secured",
+        "calculation": "Count of new contracts",
+        "metric": "5-10 new projects per quarter"
+      },
+      {
+        "title": "Resource Utilization Efficiency",
+        "name": "Efficiency of resource usage",
+        "calculation": "Productive hours / total available hours",
+        "metric": "70-85% utilization rate"
+      },
+      {
+        "title": "Technology Partnership Development",
+        "name": "Growth of strategic partnerships",
+        "calculation": "Number of partnerships formed",
+        "metric": "2-4 partnerships annually"
+      },
+      {
+        "title": "Revenue Forecast Accuracy",
+        "name": "Accuracy of revenue predictions",
+        "calculation": "(Actual - Forecasted) / Forecasted * 100",
+        "metric": "±5% deviation acceptable"
+      },
+      {
+        "title": "Employee Expertise and Training",
+        "name": "Team skill development",
+        "calculation": "Training sessions and certifications per employee",
+        "metric": "2-3 trainings or 1-2 certifications annually"
+      },
+      {
+        "title": "Market Position and Brand Recognition",
+        "name": "Company market presence",
+        "calculation": "Surveys and social media metrics",
+        "metric": "Top 3 recognition, 20-30% engagement growth"
       }
-    }
+    ],
+    "fitReportPath": "https://diligentsia-external-reports.s3.ap-northeast-1.amazonaws.com/production/fit/67b419f024594d617a36c8d5/fit-report-1758276036850.pdf?AWSAccessKeyId=AKIA2MOU74NBYGNOPY6G&Expires=1758290436&Signature=aDZGioL5XwKmNPPgrWg8HneU4gs%3D",
+    "kpiReportPath": "https://diligentsia-external-reports.s3.ap-northeast-1.amazonaws.com/production/kpi/67b419f024594d617a36c8d5/kpi-report-1758276040027.pdf?AWSAccessKeyId=AKIA2MOU74NBYGNOPY6G&Expires=1758290440&Signature=1%2BSPWsKEwhprBFjKvIvBQr8PFkU%3D"
   }
 }
 ```
