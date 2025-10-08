@@ -396,6 +396,11 @@
                     "description": "Optional. Whether to send activation email to the user. If false, returns loginLink in response",
                     "default": true
                   },
+                  "backgroundProcess": {
+                    "type": "boolean",
+                    "description": "Optional. Process company creation asynchronously in the background. When true, API returns immediately with a confirmation message and company/user/reports are created silently",
+                    "default": false
+                  },
                   "user": {
                     "type": "object",
                     "description": "User information (optional)",

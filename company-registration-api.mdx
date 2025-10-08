@@ -35,32 +35,46 @@ The Company Registration API enables partners to seamlessly register UK companie
     
 </Card>
 
+## 🎛️ Request Parameters
+
+These optional flags control the API behavior:
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `sendEmail` | boolean | `true` | Controls whether to send activation email to the user |
+| `backgroundProcess` | boolean | `false` | Process company creation asynchronously in the background |
+
+<Info>
+**Email Behavior:**
+- When `sendEmail` is `true` (default): User receives an activation email with login instructions
+- When `sendEmail` is `false`: API returns a `loginLink` in the response for direct access
+</Info>
+
+<Warning>
+**Background Processing:**
+- When `backgroundProcess` is `true`: Company, user, and reports are created asynchronously. API returns immediately with a confirmation message
+- When `backgroundProcess` is `false` (default): API processes synchronously and returns complete results including investor matches and reports
+</Warning>
+
 ## 📝 Request Body Structure
 
 The request body consists of three main sections:
 
 <Tabs>
   <Tab title="User Information">
-    
+
     <Note>
       **Optional Section** - If not provided, a guest user will be created
     </Note>
-    
+
     ### User Fields
-    
-    | Field | Type | Required | Description | Default |
-    |-------|------|----------|-------------|----------|
-    | `sendEmail` | boolean | No | Controls whether to send activation email | `true` |
-    | `email` | string | No | User's email address for account creation | - |
-    | `firstName` | string | No | User's first name | - |
-    | `lastName` | string | No | User's last name | - |
-    
-    <Info>
-      **Email Behavior:**
-      - If `sendEmail` is `true` (default): User receives an activation email with login instructions
-      - If `sendEmail` is `false`: API returns a `loginLink` in the response for direct access
-    </Info>
-    
+
+    | Field | Type | Required | Description |
+    |-------|------|----------|-------------|
+    | `email` | string | No | User's email address for account creation |
+    | `firstName` | string | No | User's first name |
+    | `lastName` | string | No | User's last name |
+
   </Tab>
   
   <Tab title="Company Details">
@@ -296,11 +310,54 @@ The request body consists of three main sections:
 }
 ```
 
+### With Background Processing
+```json
+{
+  "backgroundProcess": true,
+  "sendEmail": true,
+  "user": {
+    "email": "john.doe@example.com",
+    "firstName": "John",
+    "lastName": "Doe"
+  },
+  "company": {
+    "ukRegNo": "12345678",
+    "companyWebsite": "https://techstartup.co.uk",
+    "company5Words": "Innovative software development consulting services"
+  },
+  "investorMatch": {
+    "sector": "Software",
+    "stage": "Post-Revenue Early Stage",
+    "annualRevenues": "£1m-£5m",
+    "annualProfits": "£100'000-£500'000",
+    "region": "Greater London",
+    "sweetSpot": "£1'000'001-£5'000'000"
+  }
+}
+```
+
 ## 📥 Response Format
 
 ### ✅ Success Response (200)
 
-#### When sendEmail is true (default)
+#### When backgroundProcess is true (Async)
+```json
+{
+  "code": 200,
+  "message": "Your company is being created. It will take a couple of minutes. You can check back later.",
+  "body": []
+}
+```
+
+<Info>
+**Background Processing Behavior:**
+- Company, user, and reports are created asynchronously in the background
+- The process typically completes within a few minutes
+- Email notifications (if `sendEmail` is `true`) will be sent once processing completes
+- No immediate company data, investor matches, or reports are returned in the response
+</Info>
+
+#### When backgroundProcess is false and sendEmail is true (default)
 ```json
 {
   "code": 200,
@@ -419,7 +476,7 @@ The request body consists of three main sections:
 }
 ```
 
-#### When sendEmail is false
+#### When backgroundProcess is false and sendEmail is false
 ```json
 {
   "code": 200,
@@ -558,6 +615,8 @@ The request body consists of three main sections:
 
 ## 🎯 What Happens Next?
 
+### Synchronous Processing (backgroundProcess: false - default)
+
 <Steps>
   <Step title="Company Creation">
     Company profile is created with Companies House integration
@@ -577,6 +636,30 @@ The request body consists of three main sections:
   </Step>
   <Step title="PDF Reports Available">
     Access downloadable Fit Report and KPI Report PDFs via secure URLs
+  </Step>
+</Steps>
+
+### Background Processing (backgroundProcess: true)
+
+<Steps>
+  <Step title="Immediate Response">
+    API returns immediately with confirmation message
+  </Step>
+  <Step title="Background Company Creation">
+    Company profile is created asynchronously with Companies House integration
+  </Step>
+  <Step title="Background User Account">
+    User account is created or updated with partner association in the background
+  </Step>
+  <Step title="Background Investor Matching">
+    System matches company against 1000+ investor profiles asynchronously
+  </Step>
+  <Step title="Background Reports Generation">
+    Fit Score and KPI reports are generated in the background
+  </Step>
+  <Step title="Completion Notification">
+    - If `sendEmail` is `true`: User receives email once all processing completes
+    - Process typically completes within a few minutes
   </Step>
 </Steps>
 

@@ -9,9 +9,13 @@ description: 'Register a UK company with comprehensive investor matching data'
 </Note>
 
 <Info>
-  **New Feature**: The `sendEmail` flag (optional, default: `true`) controls email notifications:
-  - When `true`: User receives an activation email with login instructions
-  - When `false`: API returns a `loginLink` in the response for direct access
+  **Request Parameters** (optional, top-level flags):
+  - `sendEmail` (boolean, default: `true`) - Controls email notifications:
+    - When `true`: User receives an activation email with login instructions
+    - When `false`: API returns a `loginLink` in the response for direct access
+  - `backgroundProcess` (boolean, default: `false`) - Controls processing mode:
+    - When `true`: Company, user, and reports are created asynchronously. API returns immediately with a confirmation message
+    - When `false`: API processes synchronously and returns complete results including investor matches and reports
 </Info>
 
 <RequestExample>
@@ -62,9 +66,42 @@ description: 'Register a UK company with comprehensive investor matching data'
   }
 }
 ```
+
+```json Request with Background Processing
+{
+  "backgroundProcess": true,
+  "sendEmail": true,
+  "user": {
+    "email": "john.doe@example.com",
+    "firstName": "John",
+    "lastName": "Doe"
+  },
+  "company": {
+    "ukRegNo": "12345678",
+    "companyWebsite": "https://techstartup.co.uk",
+    "company5Words": "Innovative software development consulting services"
+  },
+  "investorMatch": {
+    "sector": "Software",
+    "stage": "Post-Revenue Early Stage",
+    "annualRevenues": "£1m-£5m",
+    "annualProfits": "£100'000-£500'000",
+    "region": "Greater London",
+    "sweetSpot": "£1'000'001-£5'000'000"
+  }
+}
+```
 </RequestExample>
 
 <ResponseExample>
+```json Success Response (backgroundProcess: true)
+{
+  "code": 200,
+  "message": "Your company is being created. It will take a couple of minutes. You can check back later.",
+  "body": []
+}
+```
+
 ```json Success Response (sendEmail: true)
 {
   "code": 200,
