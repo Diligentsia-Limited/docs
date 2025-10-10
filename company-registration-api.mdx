@@ -98,22 +98,32 @@ The request body consists of three main sections:
   </Tab>
   
   <Tab title="InvestorMatch Data">
-    
-    <Warning>
-      **Required Section** - All InvestorMatch fields must be provided
-    </Warning>
-    
+
+    <Note>
+      **Smart Auto-fill** - Some fields are auto-filled if not provided or invalid
+    </Note>
+
     ### InvestorMatch Fields
-    
+
     | Field | Type | Required | Description |
     |-------|------|----------|-------------|
     | `sector` | enum | **Yes** | Business sector |
-    | `stage` | enum | **Yes** | Company development stage |
-    | `annualRevenues` | enum | **Yes** | Current year revenue range |
+    | `stage` | enum | No | Company development stage - **Auto-calculated** from `annualRevenues` if not provided or invalid |
+    | `annualRevenues` | enum | No | Current year revenue range - **Defaults to "Nil"** if not provided or empty |
     | `annualProfits` | enum | **Yes** | Current year profit range |
-    | `region` | enum | **Yes** | UK operating region |
+    | `region` | enum | No | UK operating region - **Defaults to "UK"** if not provided, empty, or invalid |
     | `sweetSpot` | enum | **Yes** | Investment amount sought |
-    
+
+    <Tip>
+      **Auto-fill Logic:**
+      - **`annualRevenues`**: Automatically set to "Nil" if missing or empty
+      - **`stage`**: Auto-calculated based on revenue:
+        - "Nil" or 0 revenue → **Pre-Revenue**
+        - Revenue > 0 and < £5m → **Post-Revenue Early Stage**
+        - Revenue ≥ £5m → **Mature**
+      - **`region`**: Defaults to "UK" if missing, empty, or invalid. AI normalization is attempted for invalid region values
+    </Tip>
+
   </Tab>
 </Tabs>
 

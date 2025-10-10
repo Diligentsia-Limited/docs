@@ -443,8 +443,8 @@
                   },
                   "investorMatch": {
                     "type": "object",
-                    "required": ["sector", "stage", "annualRevenues", "annualProfits", "region", "sweetSpot"],
-                    "description": "InvestorMatch information",
+                    "required": ["sector", "annualProfits", "sweetSpot"],
+                    "description": "InvestorMatch information with smart auto-fill for optional fields",
                     "properties": {
                       "sector": {
                         "type": "string",
@@ -512,7 +512,7 @@
                       },
                       "stage": {
                         "type": "string",
-                        "description": "Company development stage",
+                        "description": "Company development stage. Optional - auto-calculated from annualRevenues if not provided (Nil=Pre-Revenue, <£5m=Post-Revenue Early Stage, ≥£5m=Mature)",
                         "enum": [
                           "Pre-Revenue",
                           "Post-Revenue Early Stage",
@@ -521,7 +521,7 @@
                       },
                       "annualRevenues": {
                         "type": "string",
-                        "description": "Current year budgeted revenue",
+                        "description": "Current year budgeted revenue. Optional - defaults to 'Nil' if not provided or empty",
                         "enum": [
                           "Nil",
                           "<£100'000",
@@ -553,7 +553,7 @@
                       },
                       "region": {
                         "type": "string",
-                        "description": "UK operating region",
+                        "description": "UK operating region. Optional - defaults to 'UK' if not provided, empty, or invalid. AI normalization is attempted for invalid values",
                         "enum": [
                           "UK",
                           "East Midlands",
