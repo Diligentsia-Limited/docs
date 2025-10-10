@@ -1,6 +1,6 @@
 ---
 title: 'Get Partner Company'
-openapi: 'GET /api/v1/company/{ukRegNo}'
+openapi: 'GET /api/v1/company'
 description: 'Retrieve company information with comprehensive investor matching data'
 ---
 
@@ -9,18 +9,18 @@ description: 'Retrieve company information with comprehensive investor matching 
 </Note>
 
 <Info>
-  This endpoint returns comprehensive company data including investor matching scores, detailed fit reports, and KPI reports when InvestorMatch data is available.
+  This endpoint returns comprehensive company data including investor matching scores, detailed fit reports, and KPI reports when InvestorMatch data is available. The endpoint supports query parameter format with optional trailing slash: `/api/v1/company?ukRegNo=03237591` or `/api/v1/company/?ukRegNo=03237591`
 </Info>
 
 <RequestExample>
 ```bash cURL
 curl -X GET \
-  https://prodserver.diligentsia.co.uk/api/v1/company/90654233 \
+  'https://prodserver.diligentsia.co.uk/api/v1/company?ukRegNo=03237591' \
   -H 'X-API-Key: YOUR_API_KEY'
 ```
 
 ```javascript JavaScript
-const response = await fetch('https://prodserver.diligentsia.co.uk/api/v1/company/90654233', {
+const response = await fetch('https://prodserver.diligentsia.co.uk/api/v1/company?ukRegNo=03237591', {
   method: 'GET',
   headers: {
     'X-API-Key': 'YOUR_API_KEY'
@@ -39,7 +39,8 @@ headers = {
 }
 
 response = requests.get(
-    'https://prodserver.diligentsia.co.uk/api/v1/company/90654233',
+    'https://prodserver.diligentsia.co.uk/api/v1/company',
+    params={'ukRegNo': '03237591'},
     headers=headers
 )
 

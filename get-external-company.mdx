@@ -22,25 +22,30 @@ The Get External Company API enables partners to retrieve detailed company infor
 
 ## 📍 Endpoint Details
 
-<Card title="GET /api/v1/company/{ukRegNo}" icon="arrow-right">
-  
+<Card title="GET /api/v1/company" icon="arrow-right">
+
   **Method:** `GET`
-  
-  **URL:** `https://prodserver.diligentsia.co.uk/api/v1/company/{ukRegNo}`
-  
+
+  **URL:** `https://prodserver.diligentsia.co.uk/api/v1/company?ukRegNo=03237591`
+
   **Authentication:** Required (X-API-Key header)
-  
-  
+
+  **Query Parameters:**
+  - `ukRegNo` (string, required) - UK company registration number (6-8 alphanumeric characters)
+  - Example: `03237591`
+
+  **Note:** Both `/api/v1/company?ukRegNo=03237591` and `/api/v1/company/?ukRegNo=03237591` (with trailing slash) are supported.
+
 </Card>
 
-## 🔑 Path Parameters
+## 🔑 Query Parameters
 
 | Parameter | Type | Required | Description | Example |
 |-----------|------|----------|-------------|---------|
-| `ukRegNo` | string | **Yes** | UK company registration number | `90654233` |
+| `ukRegNo` | string | **Yes** | UK company registration number (6-8 alphanumeric characters) | `03237591` |
 
 <Info>
-  The UK registration number should be provided without spaces or special characters. The system will automatically normalize the format.
+  The UK registration number should be provided as a query parameter without spaces or special characters. The system will automatically normalize the format. Both `/api/v1/company?ukRegNo=03237591` and `/api/v1/company/?ukRegNo=03237591` (with trailing slash) are supported.
 </Info>
 
 ## 🔐 Authentication
@@ -325,10 +330,10 @@ The fit scoring system evaluates compatibility across 6 key dimensions:
 
 <Steps>
   <Step title="Prepare Request">
-    Format the UK registration number and prepare X-API-Key header
+    Format the UK registration number as a query parameter and prepare X-API-Key header
   </Step>
   <Step title="Call API">
-    Make GET request to `/api/v1/company/{ukRegNo}` with API key
+    Make GET request to `/api/v1/company?ukRegNo=03237591` with API key
   </Step>
   <Step title="Process Response">
     Parse the response to extract company and investor matching data

@@ -11,10 +11,10 @@
     }
   ],
   "paths": {
-    "/api/v1/company/{ukRegNo}": {
+    "/api/v1/company": {
       "get": {
         "summary": "Get External Company",
-        "description": "Retrieve company information with comprehensive investor matching data",
+        "description": "Retrieve company information with comprehensive investor matching data. Supports query parameter format with optional trailing slash.",
         "parameters": [
           {
             "name": "X-API-Key",
@@ -27,13 +27,14 @@
           },
           {
             "name": "ukRegNo",
-            "in": "path",
+            "in": "query",
             "required": true,
             "description": "UK company registration number",
             "schema": {
               "type": "string",
               "pattern": "^[0-9A-Z]{6,8}$"
-            }
+            },
+            "example": "03237591"
           }
         ],
         "responses": {
@@ -251,7 +252,7 @@
         }
       }
     },
-    "/api/v1/company/basic/{ukRegNo}": {
+    "/api/v1/company/basic/ukRegNo": {
       "get": {
         "summary": "Get Company",
         "description": "Retrieve basic company information by registration number",
@@ -554,7 +555,7 @@
                         "type": "string",
                         "description": "UK operating region",
                         "enum": [
-                          "Nationwide (UK-wide)",
+                          "UK",
                           "East Midlands",
                           "West Midlands",
                           "East of England",
