@@ -26,13 +26,13 @@ The Get External Company API enables partners to retrieve detailed company infor
 
   **Method:** `GET`
 
-  **URL:** `https://prodserver.diligentsia.co.uk/api/v1/company?ukRegNo=03237591`
+  **URL:** `https://prodserver.diligentsia.co.uk/api/v1/company?ukRegNo=12345678`
 
   **Authentication:** Required (X-API-Key header)
 
   **Query Parameters:**
   - `ukRegNo` (string, required) - UK company registration number (6-8 alphanumeric characters)
-  - Example: `03237591`
+  - Example: `12345678`
 
   **Note:** Both `/api/v1/company?ukRegNo=03237591` and `/api/v1/company/?ukRegNo=03237591` (with trailing slash) are supported.
 
@@ -42,10 +42,10 @@ The Get External Company API enables partners to retrieve detailed company infor
 
 | Parameter | Type | Required | Description | Example |
 |-----------|------|----------|-------------|---------|
-| `ukRegNo` | string | **Yes** | UK company registration number (6-8 alphanumeric characters) | `03237591` |
+| `ukRegNo` | string | **Yes** | UK company registration number (6-8 alphanumeric characters) | `12345678` |
 
 <Info>
-  The UK registration number should be provided as a query parameter without spaces or special characters. The system will automatically normalize the format. Both `/api/v1/company?ukRegNo=03237591` and `/api/v1/company/?ukRegNo=03237591` (with trailing slash) are supported.
+  The UK registration number should be provided as a query parameter without spaces or special characters. The system will automatically normalize the format. Both `/api/v1/company?ukRegNo=12345678` and `/api/v1/company/?ukRegNo=12345678` (with trailing slash) are supported.
 </Info>
 
 ## 🔐 Authentication
@@ -154,16 +154,16 @@ The response includes comprehensive company data with investor matching results:
   "code": 200,
   "message": "Company found with InvestorMatch data",
   "body": {
-    "companyId": "68cd29938e944fb9a6238204",
-    "userId": "68bfe6109b0c0c04554d393d",
-    "companyName": "UK SEARCH LIMITED",
-    "ukRegNo": "05321310",
-    "partnerId": "689af23667682c1bc5caa23b",
-    "partnerName": "KPMG Super Flow",
+    "companyId": "60a1b2c3d4e5f6a7b8c9d0e1",
+    "userId": "60b2c3d4e5f6a7b8c9d0e1f2",
+    "companyName": "Example Tech Ltd",
+    "ukRegNo": "12345678",
+    "partnerId": "60c3d4e5f6a7b8c9d0e1f2a3",
+    "partnerName": "Example Partners Inc",
     "investorMatchCompleted": true,
     "fitReport": {
-      "investorId": "65d5a7dcc8d1efbe610208d0",
-      "investorName": "7percent Ventures Limited",
+      "investorId": "60d4e5f6a7b8c9d0e1f2a3b4",
+      "investorName": "Example Capital Fund",
       "fitScore": 3.5,
       "fitScorePercentage": 58,
       "priorityScore": 22,
@@ -202,19 +202,19 @@ The response includes comprehensive company data with investor matching results:
     "kpiReport": [
       {
         "title": "Innovation in Software Solutions",
-        "name": "Measure the ability of UK SEARCH LIMITED to deliver cutting-edge software solutions that align with industry standards and customer requirements. This includes tracking the number of innovative features developed or implemented in clients' custom software applications.",
+        "name": "Measure the ability of Example Tech Ltd to deliver cutting-edge software solutions that align with industry standards and customer requirements. This includes tracking the number of innovative features developed or implemented in clients' custom software applications.",
         "calculation": "Innovation in Software Solutions can be quantified by tracking the number of new features or technologies developed and implemented in client projects over a specific period. This can be calculated by counting such features and comparing them to a predefined target or baseline to gauge innovation levels.",
         "metric": "For Innovation in Software Solutions, a range might be 1-2 major innovations per quarter in small firms, and 3-5 for larger firms, depending on R&D investment and project scope."
       },
       {
         "title": "Client Satisfaction and Feedback",
-        "name": "Evaluate the satisfaction level of UK SEARCH LIMITED's clients regarding the software development, cloud, and consulting services provided. Collect and analyze client feedback to ensure continuous improvement in service delivery.",
+        "name": "Evaluate the satisfaction level of Example Tech Ltd's clients regarding the software development, cloud, and consulting services provided. Collect and analyze client feedback to ensure continuous improvement in service delivery.",
         "calculation": "Client Satisfaction and Feedback can be measured through surveys or feedback forms distributed to clients after project delivery. Use a scoring system (e.g., a 1 to 5 scale) to rate satisfaction and calculate the average score across all responses. Net Promoter Score (NPS) can also be used to assess client loyalty and satisfaction.",
         "metric": "For Client Satisfaction and Feedback using an NPS, a score of 30 to 40 is average, 40 to 70 is good, and above 70 is excellent. Satisfaction surveys might target scores of 4.0 to 4.5 out of 5."
       },
       {
         "title": "Project Delivery Timeliness",
-        "name": "Monitor the adherence to project timelines and deadlines for software and cloud service implementations. This KPI ensures that UK SEARCH LIMITED consistently delivers projects on time, enhancing client trust and reliability.",
+        "name": "Monitor the adherence to project timelines and deadlines for software and cloud service implementations. This KPI ensures that Example Tech Ltd consistently delivers projects on time, enhancing client trust and reliability.",
         "calculation": "Project Delivery Timeliness is calculated by dividing the number of projects delivered on or before the deadline by the total number of projects completed within a given timeframe. Express the result as a percentage to determine timeliness performance.",
         "metric": "For Project Delivery Timeliness, an expected range is 90% to 95% of projects delivered on time, acknowledging that occasional delays are typical due to unforeseen circumstances."
       },
@@ -226,7 +226,7 @@ The response includes comprehensive company data with investor matching results:
       },
       {
         "title": "Consulting Engagements Won",
-        "name": "Quantify the number of new consulting projects secured by UK SEARCH LIMITED, reflecting the company's ability to attract clients seeking strategic technology advice.",
+        "name": "Quantify the number of new consulting projects secured by Example Tech Ltd, reflecting the company's ability to attract clients seeking strategic technology advice.",
         "calculation": "Consulting Engagements Won is simply the count of new consulting contracts or projects secured within a particular period. Track this number monthly, quarterly, or annually to assess business development effectiveness.",
         "metric": "For Consulting Engagements Won, securing 5 to 10 new projects per quarter is considered good for a mid-sized firm, varying with market demand and sales capacity."
       },
@@ -238,31 +238,31 @@ The response includes comprehensive company data with investor matching results:
       },
       {
         "title": "Technology Partnership Development",
-        "name": "Measure the establishment and growth of partnerships with major cloud providers and technology firms. This KPI indicates UK SEARCH LIMITED's efforts to enhance its cloud services and infrastructure capabilities.",
+        "name": "Measure the establishment and growth of partnerships with major cloud providers and technology firms. This KPI indicates Example Tech Ltd's efforts to enhance its cloud services and infrastructure capabilities.",
         "calculation": "Technology Partnership Development can be evaluated by counting the number of formal partnerships established with major cloud providers or technology firms within a set timeframe, compared to strategic goals or industry benchmarks.",
         "metric": "For Technology Partnership Development, forming 2 to 4 strategic partnerships annually is typical for companies seeking robust growth and enhanced service capabilities."
       },
       {
         "title": "Revenue Forecast Accuracy",
-        "name": "Monitor the accuracy of revenue forecasts for pre-revenue operations. This involves comparing projected versus actual revenue, helping UK SEARCH LIMITED refine its financial planning and forecasting processes.",
+        "name": "Monitor the accuracy of revenue forecasts for pre-revenue operations. This involves comparing projected versus actual revenue, helping Example Tech Ltd refine its financial planning and forecasting processes.",
         "calculation": "Revenue Forecast Accuracy is calculated by comparing the forecasted revenue to the actual revenue earned. Use the following formula: [(Actual Revenue - Forecasted Revenue) / Forecasted Revenue] * 100 to get a percentage that reflects forecast accuracy.",
         "metric": "For Revenue Forecast Accuracy, a deviation of ±5% is generally acceptable, reflecting effective forecasting processes and market adaptability."
       },
       {
         "title": "Employee Expertise and Training",
-        "name": "Evaluate the level of expertise and continuous training provided to employees at UK SEARCH LIMITED. This ensures that the team remains knowledgeable about the latest technologies and best practices.",
+        "name": "Evaluate the level of expertise and continuous training provided to employees at Example Tech Ltd. This ensures that the team remains knowledgeable about the latest technologies and best practices.",
         "calculation": "Employee Expertise and Training can be measured by tracking the number of training sessions attended, certifications achieved, or skills developed per employee over a given period. Compare this data against set training and development targets.",
         "metric": "For Employee Expertise and Training, the expected range could be each employee attending 2 to 3 training sessions or achieving 1 to 2 new certifications annually."
       },
       {
         "title": "Market Position and Brand Recognition",
-        "name": "Analyze UK SEARCH LIMITED's position in the market and its brand recognition within the technology sector. This KPI helps gauge the company's reputation and effectiveness in reaching target audiences.",
+        "name": "Analyze Example Tech Ltd's position in the market and its brand recognition within the technology sector. This KPI helps gauge the company's reputation and effectiveness in reaching target audiences.",
         "calculation": "Market Position and Brand Recognition can be assessed through surveys targeting industry professionals or potential clients, analyzing metrics such as market share, brand recall, and online presence. Combine this qualitative data with quantitative metrics like social media engagement or website traffic.",
         "metric": "For Market Position and Brand Recognition, aiming for top 3 recognition in industry surveys and a 20% to 30% increase in social media engagement annually is typical for growing firms."
       }
     ],
-    "fitReportPath": "https://diligentsia-external-reports.s3.ap-northeast-1.amazonaws.com/production/fit/68cd29938e944fb9a6238204/fit-report-1758276036850.pdf?AWSAccessKeyId=AKIA2MOU74NBYGNOPY6G&Expires=1758290436&Signature=aDZGioL5XwKmNPPgrWg8HneU4gs%3D",
-    "kpiReportPath": "https://diligentsia-external-reports.s3.ap-northeast-1.amazonaws.com/production/kpi/68cd29938e944fb9a6238204/kpi-report-1758276040027.pdf?AWSAccessKeyId=AKIA2MOU74NBYGNOPY6G&Expires=1758290440&Signature=1%2BSPWsKEwhprBFjKvIvBQr8PFkU%3D"
+    "fitReportPath": "https://diligentsia-external-reports.s3.ap-northeast-1.amazonaws.com/production/fit/60a1b2c3d4e5f6a7b8c9d0e1/fit-report-1758276036850.pdf?AWSAccessKeyId=AKIA2MOU74NBYGNOPY6G&Expires=1758290436&Signature=aDZGioL5XwKmNPPgrWg8HneU4gs%3D",
+    "kpiReportPath": "https://diligentsia-external-reports.s3.ap-northeast-1.amazonaws.com/production/kpi/60a1b2c3d4e5f6a7b8c9d0e1/kpi-report-1758276040027.pdf?AWSAccessKeyId=AKIA2MOU74NBYGNOPY6G&Expires=1758290440&Signature=1%2BSPWsKEwhprBFjKvIvBQr8PFkU%3D"
   }
 }
 ```
@@ -333,7 +333,7 @@ The fit scoring system evaluates compatibility across 6 key dimensions:
     Format the UK registration number as a query parameter and prepare X-API-Key header
   </Step>
   <Step title="Call API">
-    Make GET request to `/api/v1/company?ukRegNo=03237591` with API key
+    Make GET request to `/api/v1/company?ukRegNo=12345678` with API key
   </Step>
   <Step title="Process Response">
     Parse the response to extract company and investor matching data
