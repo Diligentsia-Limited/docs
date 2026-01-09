@@ -819,6 +819,158 @@
           }
         }
       }
+    },
+    "/api/v1/company/upload-pitch-deck": {
+      "post": {
+        "summary": "Upload Pitch Deck",
+        "description": "Upload pitch deck files for a registered company. Files are stored in AWS S3 and automatically linked to the company's Investment Readiness profile.",
+        "parameters": [
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "required": true,
+            "description": "Your partner API key for authentication",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": ["companyId", "files"],
+                "properties": {
+                  "companyId": {
+                    "type": "string",
+                    "description": "The MongoDB ObjectId of the registered company",
+                    "example": "60a1b2c3d4e5f6a7b8c9d0e1"
+                  },
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    },
+                    "description": "One or more pitch deck files to upload (PDF, PPTX, PPT, PNG, JPG, JPEG, DOCX, DOC)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Pitch deck uploaded successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Pitch deck uploaded successfully"
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "files": {
+                          "type": "array",
+                          "description": "Array of uploaded file details",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "key": {
+                                "type": "string",
+                                "description": "S3 storage key for the file",
+                                "example": "uploads/pitch-decks/60a1b2c3d4e5f6a7b8c9d0e1/pitch-deck-1704067200000.pdf"
+                              },
+                              "location": {
+                                "type": "string",
+                                "description": "Public URL to access the file",
+                                "example": "https://s3.amazonaws.com/diligentsia-uploads/uploads/pitch-decks/60a1b2c3d4e5f6a7b8c9d0e1/pitch-deck-1704067200000.pdf"
+                              },
+                              "originalname": {
+                                "type": "string",
+                                "description": "Original filename as uploaded",
+                                "example": "pitch-deck.pdf"
+                              },
+                              "size": {
+                                "type": "integer",
+                                "description": "File size in bytes",
+                                "example": 2048576
+                              },
+                              "mimetype": {
+                                "type": "string",
+                                "description": "MIME type of the file",
+                                "example": "application/pdf"
+                              }
+                            }
+                          }
+                        },
+                        "answerId": {
+                          "type": "string",
+                          "description": "MongoDB ObjectId of the answer record storing the files",
+                          "example": "60e5f6a7b8c9d0e1f2a3b4c5"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 400
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "companyId is required in request body"
+                    }
+                  }
+                },
+                "examples": {
+                  "missingCompanyId": {
+                    "summary": "Missing companyId",
+                    "value": {
+                      "code": 400,
+                      "message": "companyId is required in request body"
+                    }
+                  },
+                  "noFiles": {
+                    "summary": "No files uploaded",
+                    "value": {
+                      "code": 400,
+                      "message": "No files uploaded"
+                    }
+                  },
+                  "companyNotFound": {
+                    "summary": "Company not found",
+                    "value": {
+                      "code": 400,
+                      "message": "Company not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

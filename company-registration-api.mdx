@@ -689,3 +689,196 @@ The request body consists of three main sections:
     Store API responses securely for future reference
   </Card>
 </CardGroup>
+
+---
+
+## 📎 Upload Pitch Deck API
+
+Upload pitch deck files for a registered company. This endpoint allows partners to attach pitch deck documents to a company profile, automatically storing them in the appropriate section for investor review.
+
+<CardGroup cols={3}>
+  <Card title="Multiple Files" icon="files" color="#0285c7">
+    Upload multiple pitch deck files in a single request
+  </Card>
+  <Card title="Auto-Linking" icon="link" color="#16a34a">
+    Files automatically linked to Investment Readiness section
+  </Card>
+  <Card title="Secure Storage" icon="cloud-arrow-up" color="#7c3aed">
+    Files stored securely in AWS S3
+  </Card>
+</CardGroup>
+
+### 📍 Endpoint Details
+
+<Card title="POST /api/v1/company/upload-pitch-deck" icon="paper-plane">
+
+  **Method:** `POST`
+
+  **URL:** `https://prodserver.diligentsia.co.uk/api/v1/company/upload-pitch-deck`
+
+  **Authentication:** Required (X-API-Key header)
+
+  **Content-Type:** `multipart/form-data`
+
+</Card>
+
+### 📋 Request Headers
+
+| Header | Type | Required | Description |
+|--------|------|----------|-------------|
+| `X-API-Key` | string | **Yes** | Your API authentication key |
+| `Content-Type` | string | **Yes** | Must be `multipart/form-data` |
+
+### 📝 Request Body
+
+<Warning>
+  This endpoint uses `multipart/form-data` encoding, not JSON. Files must be uploaded as form data.
+</Warning>
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `companyId` | string | **Yes** | The MongoDB ObjectId of the registered company |
+| `files` | file(s) | **Yes** | One or more pitch deck files to upload |
+
+<Tip>
+  The `companyId` can be obtained from the response of the Company Registration API (`/api/v1/company/create-with-investormatch`).
+</Tip>
+
+### ✅ Supported File Types
+
+<AccordionGroup>
+  <Accordion title="Recommended Formats">
+    - **PDF** - Portable Document Format (`.pdf`)
+    - **PowerPoint** - Microsoft PowerPoint (`.pptx`, `.ppt`)
+    - **Keynote** - Apple Keynote (exported as PDF recommended)
+  </Accordion>
+
+  <Accordion title="Other Accepted Formats">
+    - **Images** - PNG, JPG, JPEG
+    - **Documents** - DOCX, DOC
+  </Accordion>
+</AccordionGroup>
+
+### 📤 Request Example
+
+```bash
+curl -X POST "https://prodserver.diligentsia.co.uk/api/v1/company/upload-pitch-deck" \
+  -H "X-API-Key: your-api-key-here" \
+  -H "Content-Type: multipart/form-data" \
+  -F "companyId=60a1b2c3d4e5f6a7b8c9d0e1" \
+  -F "files=@/path/to/pitch-deck.pdf"
+```
+
+**JavaScript (using FormData):**
+```javascript
+const formData = new FormData();
+formData.append('companyId', '60a1b2c3d4e5f6a7b8c9d0e1');
+formData.append('files', pitchDeckFile);
+
+const response = await fetch('https://prodserver.diligentsia.co.uk/api/v1/company/upload-pitch-deck', {
+  method: 'POST',
+  headers: {
+    'X-API-Key': 'your-api-key-here'
+  },
+  body: formData
+});
+
+const result = await response.json();
+```
+
+### 📥 Response Format
+
+#### ✅ Success Response (200)
+
+```json
+{
+  "code": 200,
+  "message": "Pitch deck uploaded successfully",
+  "body": {
+    "files": [
+      {
+        "key": "uploads/pitch-decks/60a1b2c3d4e5f6a7b8c9d0e1/pitch-deck-1704067200000.pdf",
+        "location": "https://s3.amazonaws.com/diligentsia-uploads/uploads/pitch-decks/60a1b2c3d4e5f6a7b8c9d0e1/pitch-deck-1704067200000.pdf",
+        "originalname": "pitch-deck.pdf",
+        "size": 2048576,
+        "mimetype": "application/pdf"
+      }
+    ],
+    "answerId": "60e5f6a7b8c9d0e1f2a3b4c5"
+  }
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `files` | array | Array of uploaded file details |
+| `files[].key` | string | S3 storage key for the file |
+| `files[].location` | string | Public URL to access the file |
+| `files[].originalname` | string | Original filename as uploaded |
+| `files[].size` | number | File size in bytes |
+| `files[].mimetype` | string | MIME type of the file |
+| `answerId` | string | MongoDB ObjectId of the answer record storing the files |
+
+#### ❌ Error Responses (400)
+
+**Missing companyId:**
+```json
+{
+  "code": 400,
+  "message": "companyId is required in request body"
+}
+```
+
+**No files uploaded:**
+```json
+{
+  "code": 400,
+  "message": "No files uploaded"
+}
+```
+
+**Company not found:**
+```json
+{
+  "code": 400,
+  "message": "Company not found"
+}
+```
+
+### 🔄 What Happens After Upload?
+
+<Steps>
+  <Step title="File Validation">
+    Files are validated for size and type requirements
+  </Step>
+  <Step title="Secure Upload">
+    Files are uploaded to AWS S3 with secure access controls
+  </Step>
+  <Step title="Answer Record">
+    Files are linked to the DEPF008.2.7 (Pitch Deck) question in the company's Due Diligence section
+  </Step>
+  <Step title="Investment Readiness Sync">
+    Files are automatically copied to the Investment Readiness module (Section 1.1) for investor visibility
+  </Step>
+</Steps>
+
+<Info>
+  **Automatic Linking:** Uploaded pitch decks are automatically associated with the company's Investment Readiness profile, making them visible to matched investors reviewing the company.
+</Info>
+
+### 💡 Best Practices
+
+<CardGroup cols={2}>
+  <Card title="File Size" icon="weight-scale" color="#0285c7">
+    Keep pitch decks under 10MB for optimal upload performance
+  </Card>
+  <Card title="PDF Format" icon="file-pdf" color="#dc2626">
+    Use PDF format for consistent viewing across all devices
+  </Card>
+  <Card title="Clear Naming" icon="tag" color="#16a34a">
+    Use descriptive filenames (e.g., "CompanyName-PitchDeck-2024.pdf")
+  </Card>
+  <Card title="Version Control" icon="code-branch" color="#7c3aed">
+    Upload updated versions - new files are appended to existing ones
+  </Card>
+</CardGroup>

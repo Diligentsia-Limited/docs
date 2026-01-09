@@ -43,6 +43,12 @@
             ]
           },
           {
+            "group": "Upload Pitch Deck Endpoint",
+            "pages": [
+              "api-reference/endpoint/upload-pitch-deck"
+            ]
+          },
+          {
             "group": "Get Company Endpoint",
             "pages": [
               "api-reference/endpoint/get-external-company"
