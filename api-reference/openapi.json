@@ -423,7 +423,7 @@
                   },
                   "company": {
                     "type": "object",
-                    "required": ["ukRegNo", "companyWebsite", "company5Words"],
+                    "required": ["ukRegNo", "companyWebsite"],
                     "description": "Company information",
                     "properties": {
                       "ukRegNo": {
